@@ -4,49 +4,48 @@ import QtQuick.Shapes
 Item {
   id: root
 
-  // ==================== Public Properties ====================
+  // ==================== Core Properties (Original API) ====================
   property real value: 0
-  property real minValue: 0
-  property real maxValue: 100
+  property real minimumValue: 0
+  property real maximumValue: 100
+  property real stepSize: 1.0          // Added - original property
 
-  property real startAngle: -135
-  property real endAngle: 135
+  // Style
+  property var style: CircularGaugeStyle
+  {
+  }
 
-  property color backgroundColor: "#333333"
-  property color progressColor: "#4CAF50"
-  property color needleColor: "#E74C3C"
-  property color tickColor: "#AAAAAA"
-  property color labelColor: "#CCCCCC"
-
-  property int majorTickCount: 10
-  property int minorTickCount: 4
-
-  property real outerRadius: Math.min(width, height) / 2
-  property real needleLength: outerRadius * 0.85
-  property real needleWidth: 6
-
-  // ==================== Internal Calculations ====================
-  readonly property real angleRange: endAngle - startAngle
+  // ==================== Calculated Values ====================
+  readonly property real angleRange: style.maximumValueAngle - style.minimumValueAngle
   readonly property real normalizedValue: Math.max(0, Math.min(1,
-      (value - minValue) / (maxValue - minValue)))
+      (value - minimumValue) / (maximumValue - minimumValue)))
 
-  // ==================== Background Arc ====================
+  readonly property real outerRadius: Math.min(width, height) / 2
+
+  // ==================== Background ====================
+  Loader {
+    anchors.fill: parent
+    sourceComponent: style.background
+  }
+
+  // Background Arc (fallback)
   Shape {
     anchors.fill: parent
     antialiasing: true
+    visible: !style.background
 
     ShapePath {
-      strokeColor: root.backgroundColor
-      strokeWidth: 14
+      strokeColor: style.backgroundColor
+      strokeWidth: style.backgroundThickness
       fillColor: "transparent"
       capStyle: ShapePath.RoundCap
 
       PathAngleArc {
         centerX: width / 2
         centerY: height / 2
-        radiusX: root.outerRadius - 10
-        radiusY: root.outerRadius - 10
-        startAngle: root.startAngle
+        radiusX: outerRadius - 10
+        radiusY: outerRadius - 10
+        startAngle: style.minimumValueAngle
         sweepAngle: root.angleRange
       }
     }
@@ -56,108 +55,161 @@ Item {
   Shape {
     anchors.fill: parent
     antialiasing: true
+    visible: style.progressThickness > 0
 
     ShapePath {
-      strokeColor: root.progressColor
-      strokeWidth: 14
+      strokeColor: style.progressColor
+      strokeWidth: style.progressThickness
       fillColor: "transparent"
       capStyle: ShapePath.RoundCap
 
       PathAngleArc {
         centerX: width / 2
         centerY: height / 2
-        radiusX: root.outerRadius - 10
-        radiusY: root.outerRadius - 10
-        startAngle: root.startAngle
+        radiusX: outerRadius - 10
+        radiusY: outerRadius - 10
+        startAngle: style.minimumValueAngle
         sweepAngle: root.normalizedValue * root.angleRange
       }
     }
   }
 
-  // ==================== Tick Marks & Labels ====================
+  // ==================== Major Tickmarks ====================
   Repeater {
-    model: root.majorTickCount + 1
+    model: Math.floor((root.maximumValue - root.minimumValue) / style.tickmarkStepSize) + 1
 
     Item {
-      id: majorTick
-      property real angle: root.startAngle + (index / root.majorTickCount) * root.angleRange
+      property real angle: style.minimumValueAngle +
+          (index * style.tickmarkStepSize) /
+          (root.maximumValue - root.minimumValue) * root.angleRange
+      property real labelValue: root.minimumValue + index * style.tickmarkStepSize
 
-      x: width / 2
-      y: height / 2
+      x: root.width / 2
+      y: root.height / 2
 
-      Rectangle {  // Major Tick
-        width: 3
-        height: 18
-        color: root.tickColor
+      Loader {
+        sourceComponent: style.tickmark
         anchors.horizontalCenter: parent.horizontalCenter
-        y: -root.outerRadius + 8
-        transformOrigin: Item.Bottom
-        rotation: majorTick.angle
+        y: -outerRadius + style.tickmarkInset
+        rotation: parent.angle
+        property int index: model.index
+        property real value: parent.labelValue
       }
 
-      Text {  // Label
-        text: Math.round(root.minValue + (index / root.majorTickCount) * (root.maxValue - root.minValue))
-        color: root.labelColor
-        font.pixelSize: 14
-        font.bold: true
+      Rectangle {
+        visible: !style.tickmark
+        width: style.majorTickmarkWidth
+        height: style.majorTickmarkLength
+        color: style.tickmarkColor
         anchors.horizontalCenter: parent.horizontalCenter
-        y: -root.outerRadius + 32
-        transformOrigin: Item.Center
-        rotation: majorTick.angle + 90
+        y: -outerRadius + style.tickmarkInset
+        transformOrigin: Item.Bottom
+        rotation: parent.angle
       }
     }
   }
 
-  // Minor ticks
+  // ==================== Labels ====================
   Repeater {
-    model: (root.majorTickCount * root.minorTickCount) + 1
+    model: Math.floor((root.maximumValue - root.minimumValue) / style.labelStepSize) + 1
 
-    Rectangle {
-      visible: index % root.minorTickCount !== 0
-      width: 2
-      height: 10
-      color: root.tickColor
-      x: root.width / 2 - 1
-      y: root.height / 2 - root.outerRadius + 12
-      transformOrigin: Item.Bottom
-      rotation: root.startAngle + (index / (root.majorTickCount * root.minorTickCount)) * root.angleRange
+    Item {
+      property real angle: style.minimumValueAngle +
+          (index * style.labelStepSize) /
+          (root.maximumValue - root.minimumValue) * root.angleRange
+      property real labelValue: root.minimumValue + index * style.labelStepSize
+
+      x: root.width / 2
+      y: root.height / 2
+
+      Loader {
+        sourceComponent: style.tickmarkLabel
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: -outerRadius + style.labelInset
+        rotation: parent.angle + 90
+        property int index: model.index
+        property real value: parent.labelValue
+      }
+    }
+  }
+
+  // ==================== Minor Tickmarks ====================
+  Repeater {
+    model: Math.floor((root.maximumValue - root.minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
+
+    Item {
+      property real angle: style.minimumValueAngle +
+          (index * style.tickmarkStepSize) /
+          (style.minorTickmarkCount * (root.maximumValue - root.minimumValue)) *
+          root.angleRange
+
+      x: root.width / 2
+      y: root.height / 2
+
+      Loader {
+        sourceComponent: style.minorTickmark
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: -outerRadius + style.minorTickmarkInset
+        rotation: parent.angle
+      }
+
+      Rectangle {
+        visible: !style.minorTickmark && (index % style.minorTickmarkCount !== 0)
+        width: style.minorTickmarkWidth
+        height: style.minorTickmarkLength
+        color: style.minorTickmarkColor
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: -outerRadius + style.minorTickmarkInset
+        transformOrigin: Item.Bottom
+        rotation: parent.angle
+      }
     }
   }
 
   // ==================== Needle ====================
   Item {
-    id: needle
     anchors.centerIn: parent
-    rotation: root.startAngle + root.normalizedValue * root.angleRange
+    rotation: style.minimumValueAngle + root.normalizedValue * root.angleRange
 
-    Rectangle {  // Needle
-      width: root.needleWidth
-      height: root.needleLength
-      color: root.needleColor
-      radius: 3
+    Loader {
+      sourceComponent: style.needle
       anchors.horizontalCenter: parent.horizontalCenter
-      y: -root.needleLength + 10
+      y: style.needleYOffset !== undefined ? style.needleYOffset : -outerRadius * 0.75
     }
 
-    // Needle hub (center circle)
     Rectangle {
-      width: 22
-      height: 22
-      radius: 11
-      color: "#222222"
-      border.color: root.needleColor
+      visible: !style.needle
+      width: style.needleWidth
+      height: style.needleLength * outerRadius
+      color: style.needleColor
+      radius: 2
+      anchors.horizontalCenter: parent.horizontalCenter
+      y: -style.needleLength * outerRadius + 12
+    }
+
+    Rectangle {  // Hub
+      width: 26
+      height: 26
+      radius: 13
+      color: "#1e1e1e"
+      border.color: style.needleColor
       border.width: 3
       anchors.centerIn: parent
     }
   }
 
-  // ==================== Center Value Text ====================
+  // Value Text
   Text {
     anchors.centerIn: parent
-    y: 25
-    text: root.value.toFixed(0)
-    font.pixelSize: 28
+    y: style.valueTextYOffset
+    text: style.valueText(root.value)
+    font.pixelSize: style.valueFontSize
     font.bold: true
-    color: "white"
+    color: style.valueTextColor
+  }
+
+  Loader {
+    anchors.fill: parent
+    sourceComponent: style.foreground
   }
 }
