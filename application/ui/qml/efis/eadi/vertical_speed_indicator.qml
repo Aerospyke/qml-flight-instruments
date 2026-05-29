@@ -37,11 +37,11 @@ Item {
     canvas.requestPaint()
   }
 
-  CustomImage {
+  CustomImageEadi {
     x: 275
     y: 50
     width: 19
-    source: "qrc:/images/eadi/eadi_vsi_scale.svg"
+    source: "qrc:/images/eadi_vsi_scale.svg"
     sourceSize.height: 750
     sourceSize.width: 95
   }

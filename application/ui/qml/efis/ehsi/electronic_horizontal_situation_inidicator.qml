@@ -17,111 +17,111 @@ Item {
   readonly property double pixelPerDeviation: 52.5
 
   FontLoader {
-    source: "qrc:/Resources/Fonts/Courier Std Bold.otf"
+    source: "qrc:/fonts/Courier Std Bold.otf"
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: back
-    source: "qrc:/images/ehsi/ehsi_back.svg"
+    source: "qrc:/images/ehsi_back.svg"
     width: 300
     height: 300
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: devScale
     rotation: -heading + course
-    source: "qrc:/images/ehsi/ehsi_dev_scale.svg"
+    source: "qrc:/images/ehsi_dev_scale.svg"
     width: 300
     height: 300
     visible: cdiMode === 1 || cdiMode === 2
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: devBar
     rotation: -heading + course
     transform: Translate {
       x: pixelPerDeviation * deviation * Math.cos((-heading + course) * Math.PI / 180.0)
       y: pixelPerDeviation * deviation * Math.sin((-heading + course) * Math.PI / 180.0)
     }
-    source: "qrc:/images/ehsi/ehsi_dev_bar.svg"
+    source: "qrc:/images/ehsi_dev_bar.svg"
     width: 300
     height: 300
     visible: cdiMode === 1 || cdiMode === 2
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: brgArrow
     rotation: -heading + bearing
-    source: "qrc:/images/ehsi/ehsi_brg_arrow.svg"
+    source: "qrc:/images/ehsi_brg_arrow.svg"
     width: 300
     height: 300
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: crsArrow
     rotation: -heading + course
-    source: "qrc:/images/ehsi/ehsi_crs_arrow.svg"
+    source: "qrc:/images/ehsi_crs_arrow.svg"
     width: 300
     height: 300
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: cdiTo
     rotation: -heading + course
     transform: Translate {
       x: pixelPerDeviation * deviation * Math.cos((-heading + course) * Math.PI / 180.0)
       y: pixelPerDeviation * deviation * Math.sin((-heading + course) * Math.PI / 180.0)
     }
-    source: "qrc:/images/ehsi/ehsi_cdi_to.svg"
+    source: "qrc:/images/ehsi_cdi_to.svg"
     width: 300
     height: 300
     visible: cdiMode === 1
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: cdiFrom
     rotation: -heading + course
     transform: Translate {
       x: pixelPerDeviation * deviation * Math.cos((-heading + course) * Math.PI / 180.0)
       y: pixelPerDeviation * deviation * Math.sin((-heading + course) * Math.PI / 180.0)
     }
-    source: "qrc:/images/ehsi/ehsi_cdi_from.svg"
+    source: "qrc:/images/ehsi_cdi_from.svg"
     width: 300
     height: 300
     visible: cdiMode === 2
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: mask
-    source: "qrc:/images/ehsi/ehsi_mask.svg"
+    source: "qrc:/images/ehsi_mask.svg"
     width: 300
     height: 300
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: hdgScale
-    source: "qrc:/images/ehsi/ehsi_hdg_scale.svg"
+    source: "qrc:/images/ehsi_hdg_scale.svg"
     rotation: -heading
     width: 300
     height: 300
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: hdgBug
     rotation: -heading + headingBug
-    source: "qrc:/images/ehsi/ehsi_hdg_bug.svg"
+    source: "qrc:/images/ehsi_hdg_bug.svg"
     width: 300
     height: 300
   }
 
-  CustomImage {
+  CustomImageEhsi {
     id: mark
-    source: "qrc:/images/ehsi/ehsi_mark.svg"
+    source: "qrc:/images/ehsi_mark.svg"
     width: 300
     height: 300
   }
 
-  Labels {
+  LabelsEhsi {
     id: labels
     headingBug: root.headingBug
     course: root.course

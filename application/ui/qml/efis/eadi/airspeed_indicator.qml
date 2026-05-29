@@ -139,12 +139,12 @@ Item {
     }
   }
 
-  CustomImage {
+  CustomImageEadi {
     id: bug
     x: 0
     y: 110
     width: 75
-    source: "qrc:/images/eadi/eadi_asi_bug.svg"
+    source: "qrc:/images/eadi_asi_bug.svg"
     sourceSize.width: 375
     sourceSize.height: 150
     transform: Translate {
@@ -152,12 +152,12 @@ Item {
     }
   }
 
-  CustomImage {
+  CustomImageEadi {
     id: frame
     x: 0
     y: 110
     width: 75
-    source: "qrc:/images/eadi/eadi_asi_frame.svg"
+    source: "qrc:/images/eadi_asi_frame.svg"
     sourceSize.height: 154
     sourceSize.width: 375
   }

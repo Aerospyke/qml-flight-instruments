@@ -51,7 +51,7 @@
     <file alias="CenturyGothic.ttf">fonts/century_gothic.ttf</file>
     <file alias="Courier Condensed Bold.ttf">fonts/courier_condensed_bold.ttf</file>
     <file alias="Courier Condensed Regular.ttf">fonts/courier_condensed_regular.ttf</file>
-    <file alias="Courier Std Bold.ttf">fonts/courier_std_bold.otf</file>
+    <file alias="Courier Std Bold.otf">fonts/courier_std_bold.otf</file>
   </qresource>
   <qresource prefix="/images">
     <file alias="ai.svg">images/ai/ai.svg</file>
