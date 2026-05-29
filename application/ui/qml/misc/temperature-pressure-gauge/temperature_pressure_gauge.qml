@@ -1,5 +1,3 @@
-import "../../Misc/Util"
-
 import QtQuick 2.0
 
 Item {
@@ -37,7 +35,7 @@ Item {
     GaugeMask {
     }
 
-    CustomText {
+    CustomTextMiscUtil {
       x: 110 / 300 * parent.radius
       color: "#ffffff"
       text: "°F"
@@ -48,7 +46,7 @@ Item {
       wrapMode: Text.Wrap
     }
 
-    CustomText {
+    CustomTextMiscUtil {
       x: 30 / 300 * parent.radius
       width: 40 / 300 * parent.radius
       height: 195 / 300 * parent.radius
@@ -61,7 +59,7 @@ Item {
       wrapMode: Text.Wrap
     }
 
-    CustomText {
+    CustomTextMiscUtil {
       x: 530 / 300 * parent.radius
       width: 40 / 300 * parent.radius
       height: 230 / 300 * parent.radius
@@ -75,8 +73,8 @@ Item {
     }
   }
 
-  CustomImage {
+  CustomImageUtil {
     anchors.fill: parent
-    source: "qrc:/images/misc/case.svg"
+    source: "qrc:/images/case.svg"
   }
 }

@@ -1,7 +1,4 @@
-import "../../Misc/Util"
-
 import QtQuick 2.15
-import QtQuick.Extras 1.4
 
 Item {
   property double radius: 300
@@ -23,7 +20,7 @@ Item {
     }
   }
 
-  CustomImage {
+  CustomImageUtil {
     anchors.fill: parent
     source: "qrc:/images/misc/case.svg"
   }

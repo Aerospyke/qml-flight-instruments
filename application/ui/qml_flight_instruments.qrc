@@ -26,6 +26,8 @@
     <file alias="FuelFlowGauge.qml">qml/misc/egt-fuel-flow-gauge/fuel_flow_gauge.qml</file>
     <file alias="PropellerGauge.qml">qml/misc/propeller-gauge/propeller_gauge.qml</file>
     <file alias="PropellerGaugeStyle.qml">qml/misc/propeller-gauge/propeller_gauge_style.qml</file>
+    <file alias="CircularGauge.qml">qml/misc/tank-gauge/circular_gauge.qml</file>
+    <file alias="CircularGaugeStyle.qml">qml/misc/tank-gauge/circular_gauge_style.qml</file>
     <file alias="BaseTankGauge.qml">qml/misc/tank-gauge/base_tank_gauge.qml</file>
     <file alias="LeftTankGauge.qml">qml/misc/tank-gauge/left_tank_gauge.qml</file>
     <file alias="RightTankGauge.qml">qml/misc/tank-gauge/right_tank_gauge.qml</file>
