@@ -47,9 +47,8 @@ int main(int argc, char* argv[]) {
 
   engine.rootContext()->setContextProperty("pfd", pfd);
   // engine.load(url1);
-  // TODO: Reintroduce EFIS and MISC after Basic Six is running
-  engine.load(url2);
-  // engine.load(url3);
+  // engine.load(url2);
+  engine.load(url3);
 
   animation->init();
 

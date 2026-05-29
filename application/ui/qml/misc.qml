@@ -1,9 +1,3 @@
-import "Misc/PropellerGauge"
-import "Misc/TankGauge"
-import "Misc/TemperaturePressureGauge"
-import "Misc/VacAmpGauge"
-import "Misc/EgtFuelFlowGauge"
-
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.0

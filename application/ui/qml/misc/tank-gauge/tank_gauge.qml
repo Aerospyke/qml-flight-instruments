@@ -1,5 +1,3 @@
-import "../../Misc/Util"
-
 import QtQuick 2.0
 
 Item {
@@ -34,14 +32,14 @@ Item {
       value: rightTankFuel
     }
 
-    CustomText {
+    CustomTextMiscUtil {
       y: 20
       text: "FULL"
       font.pixelSize: Math.max(6, 0.1 * parent.width)
       anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    CustomText {
+    CustomTextMiscUtil {
       y: 450 / 300 * parent.radius
       height: 20 / 300 * parent.radius
       text: "GALLONS"
@@ -52,7 +50,7 @@ Item {
       horizontalAlignment: Text.AlignHCenter
     }
 
-    CustomText {
+    CustomTextMiscUtil {
       id: qtyText
       y: 510 / 300 * parent.radius
       color: "#ffffff"
@@ -64,7 +62,7 @@ Item {
     GaugeMask {
     }
 
-    CustomText {
+    CustomTextMiscUtil {
       x: 30 / 300 * parent.radius
       width: 30 / 300 * parent.radius
       height: 195 / 300 * parent.radius
@@ -77,7 +75,7 @@ Item {
       wrapMode: Text.Wrap
     }
 
-    CustomText {
+    CustomTextMiscUtil {
       x: 540 / 300 * parent.radius
       width: 30 / 300 * parent.radius
       height: 230 / 300 * parent.radius
@@ -91,8 +89,8 @@ Item {
     }
   }
 
-  CustomImage {
+  CustomImageUtil {
     anchors.fill: parent
-    source: "qrc:/images/misc/case.svg"
+    source: "qrc:/images/case.svg"
   }
 }
