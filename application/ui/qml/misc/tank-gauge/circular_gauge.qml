@@ -4,13 +4,12 @@ import QtQuick.Shapes
 Item {
   id: root
 
-  // ==================== Core Properties (Original API) ====================
+  // ==================== Core Properties ====================
   property real value: 0
   property real minimumValue: 0
   property real maximumValue: 100
-  property real stepSize: 1.0          // Added - original property
+  property real stepSize: 1.0
 
-  // Style
   property var style: CircularGaugeStyle
   {
   }
@@ -21,6 +20,13 @@ Item {
       (value - minimumValue) / (maximumValue - minimumValue)))
 
   readonly property real outerRadius: Math.min(width, height) / 2
+
+  // Expose outerRadius to the style object
+  Component.onCompleted: {
+    style.outerRadius = Qt.binding(function () {
+      return root.outerRadius;
+    })
+  }
 
   // ==================== Background ====================
   Loader {
@@ -51,7 +57,7 @@ Item {
     }
   }
 
-  // ==================== Progress Arc ====================
+  // Progress Arc
   Shape {
     anchors.fill: parent
     antialiasing: true
@@ -74,15 +80,12 @@ Item {
     }
   }
 
-  // ==================== Major Tickmarks ====================
+  // Major Tickmarks
   Repeater {
-    model: Math.floor((root.maximumValue - root.minimumValue) / style.tickmarkStepSize) + 1
+    model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize) + 1
 
     Item {
-      property real angle: style.minimumValueAngle +
-          (index * style.tickmarkStepSize) /
-          (root.maximumValue - root.minimumValue) * root.angleRange
-      property real labelValue: root.minimumValue + index * style.tickmarkStepSize
+      property real angle: style.minimumValueAngle + (index * style.tickmarkStepSize) / (maximumValue - minimumValue) * root.angleRange
 
       x: root.width / 2
       y: root.height / 2
@@ -92,8 +95,6 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         y: -outerRadius + style.tickmarkInset
         rotation: parent.angle
-        property int index: model.index
-        property real value: parent.labelValue
       }
 
       Rectangle {
@@ -109,15 +110,12 @@ Item {
     }
   }
 
-  // ==================== Labels ====================
+  // Labels
   Repeater {
-    model: Math.floor((root.maximumValue - root.minimumValue) / style.labelStepSize) + 1
+    model: Math.floor((maximumValue - minimumValue) / style.labelStepSize) + 1
 
     Item {
-      property real angle: style.minimumValueAngle +
-          (index * style.labelStepSize) /
-          (root.maximumValue - root.minimumValue) * root.angleRange
-      property real labelValue: root.minimumValue + index * style.labelStepSize
+      property real angle: style.minimumValueAngle + (index * style.labelStepSize) / (maximumValue - minimumValue) * root.angleRange
 
       x: root.width / 2
       y: root.height / 2
@@ -127,21 +125,18 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         y: -outerRadius + style.labelInset
         rotation: parent.angle + 90
-        property int index: model.index
-        property real value: parent.labelValue
       }
     }
   }
 
-  // ==================== Minor Tickmarks ====================
+  // Minor Tickmarks
   Repeater {
-    model: Math.floor((root.maximumValue - root.minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
+    model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
 
     Item {
       property real angle: style.minimumValueAngle +
           (index * style.tickmarkStepSize) /
-          (style.minorTickmarkCount * (root.maximumValue - root.minimumValue)) *
-          root.angleRange
+          (style.minorTickmarkCount * (maximumValue - minimumValue)) * root.angleRange
 
       x: root.width / 2
       y: root.height / 2
@@ -166,7 +161,7 @@ Item {
     }
   }
 
-  // ==================== Needle ====================
+  // Needle
   Item {
     anchors.centerIn: parent
     rotation: style.minimumValueAngle + root.normalizedValue * root.angleRange
@@ -198,16 +193,7 @@ Item {
     }
   }
 
-  // Value Text
-  Text {
-    anchors.centerIn: parent
-    y: style.valueTextYOffset
-    text: style.valueText(root.value)
-    font.pixelSize: style.valueFontSize
-    font.bold: true
-    color: style.valueTextColor
-  }
-
+  // Foreground
   Loader {
     anchors.fill: parent
     sourceComponent: style.foreground

@@ -22,6 +22,6 @@ Item {
 
   CustomImageUtil {
     anchors.fill: parent
-    source: "qrc:/images/misc/case.svg"
+    source: "qrc:/images/case.svg"
   }
 }

@@ -1,6 +1,8 @@
 import QtQuick
 
 QtObject {
+  
+  property real outerRadius: 0
   // Angles
   property real minimumValueAngle: -135
   property real maximumValueAngle: 135
@@ -55,14 +57,6 @@ QtObject {
   property real needleWidth: 6
   property real needleYOffset: -10
 
-  // Value Text
-  property color valueTextColor: "white"
-  property real valueFontSize: 28
-  property real valueTextYOffset: 25
-
-  function valueText(currentValue) {
-    return currentValue.toFixed(0)
-  }
 
   // Foreground
   property Component foreground: null
