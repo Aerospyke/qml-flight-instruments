@@ -179,7 +179,7 @@ Item {
     }
   }
 
-  // Needle
+  // Needle (Either explicit style.needle, or fallback rectangle if no style.needle defined)
   Item {
     anchors.centerIn: parent
     rotation: style.minimumValueAngle + root.normalizedValue * root.angleRange
@@ -187,9 +187,10 @@ Item {
     Loader {
       sourceComponent: style.needle
       anchors.horizontalCenter: parent.horizontalCenter
-      y: style.needleYOffset !== undefined ? style.needleYOffset : -outerRadius * 0.75
+      anchors.bottom: parent.verticalCenter
     }
 
+    // Fallback, if no needle style is defined
     Rectangle {
       visible: !style.needle
       width: style.needleWidth
