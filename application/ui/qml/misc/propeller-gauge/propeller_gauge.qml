@@ -7,11 +7,12 @@ Item {
   width: 2 * radius
   height: 2 * radius
 
+
   CircularGauge {
-    width: 2 * parent.radius
-    height: 2 * parent.radius
+    width: parent.width
+    height: parent.height
     anchors.centerIn: parent
-    scale: 0.775
+    scale: 0.77
     minimumValue: 0
     maximumValue: 3500
     stepSize: 1
@@ -24,4 +25,5 @@ Item {
     anchors.fill: parent
     source: "qrc:/images/case.svg"
   }
+
 }

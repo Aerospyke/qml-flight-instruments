@@ -27,33 +27,33 @@ Window {
       margins: 16
     }
 
-    TankGauge {
-      radius: window.radius
-      leftTankFuel: pfd.leftTankFuel
-      rightTankFuel: pfd.rightTankFuel
-    }
-
-    EgtFuelFlowGauge {
-      radius: window.radius
-      egt: pfd.egt
-      fuelFlow: pfd.fuelFlow
-    }
+    // TankGauge {
+    //   radius: window.radius
+    //   leftTankFuel: pfd.leftTankFuel
+    //   rightTankFuel: pfd.rightTankFuel
+    // }
+    //
+    // EgtFuelFlowGauge {
+    //   radius: window.radius
+    //   egt: pfd.egt
+    //   fuelFlow: pfd.fuelFlow
+    // }
 
     PropellerGauge {
       radius: window.radius
       rpm: pfd.rpm
     }
 
-    VacAmpGauge {
-      radius: window.radius
-      vac: pfd.vac
-      amp: pfd.amp
-    }
-
-    TemperaturePressureGauge {
-      radius: window.radius
-      engineTemperature: pfd.engineTemperature
-      enginePressure: pfd.enginePressure
-    }
+    // VacAmpGauge {
+    //   radius: window.radius
+    //   vac: pfd.vac
+    //   amp: pfd.amp
+    // }
+    //
+    // TemperaturePressureGauge {
+    //   radius: window.radius
+    //   engineTemperature: pfd.engineTemperature
+    //   enginePressure: pfd.enginePressure
+    // }
   }
 }

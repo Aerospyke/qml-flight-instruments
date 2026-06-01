@@ -1,8 +1,10 @@
 import QtQuick
 
 QtObject {
-  
+  // Exposed from CircularGauge
   property real outerRadius: 0
+  property var parentGauge: null     // ← Will hold reference to CircularGauge
+
   // Angles
   property real minimumValueAngle: -135
   property real maximumValueAngle: 135
@@ -18,7 +20,6 @@ QtObject {
 
   // Tickmarks
   property real tickmarkStepSize: 10
-  property int majorTickmarkCount: 10
   property Component tickmark: null
   property real majorTickmarkLength: 18
   property real majorTickmarkWidth: 3
@@ -36,19 +37,10 @@ QtObject {
 
   // Labels
   property real labelStepSize: 10
-  property Component tickmarkLabel: defaultTickmarkLabel
+  property Component tickmarkLabel: null
   property color labelColor: "#CCCCCC"
   property real labelFontSize: 13
   property real labelInset: 38
-
-  property Component defaultTickmarkLabel: Text
-  {
-    text: Math.round(value)
-    color: labelColor
-    font.pixelSize: labelFontSize
-    font.bold: true
-    horizontalAlignment: Text.AlignHCenter
-  }
 
   // Needle
   property Component needle: null
@@ -57,7 +49,15 @@ QtObject {
   property real needleWidth: 6
   property real needleYOffset: -10
 
-
   // Foreground
   property Component foreground: null
+
+  // ==================== Helper Function ====================
+  function valueToAngle(val) {
+    if (!parentGauge || parentGauge.maximumValue === parentGauge.minimumValue)
+      return 0;
+    var normalized = (val - parentGauge.minimumValue) /
+        (parentGauge.maximumValue - parentGauge.minimumValue);
+    return minimumValueAngle + normalized * (maximumValueAngle - minimumValueAngle);
+  }
 }

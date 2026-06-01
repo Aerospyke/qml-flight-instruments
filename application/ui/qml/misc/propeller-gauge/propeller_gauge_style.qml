@@ -7,7 +7,7 @@ CircularGaugeStyle {
   tickmarkStepSize: 500
   labelStepSize: 500
   minorTickmarkCount: 4
-  labelInset: 36 / 90 * outerRadius
+  labelInset: 20 / 90 * outerRadius
   tickmarkInset: 6 / 90 * outerRadius
   minorTickmarkInset: 6 / 90 * outerRadius
 
@@ -15,7 +15,8 @@ CircularGaugeStyle {
   property double tickmarkHeight: 20 / 90 * outerRadius
 
   tickmark: Rectangle {
-    color: "#ffffff"
+    color: "#BBBBBB"
+    // width: 40
     width: 3 / 90 * outerRadius
     height: style.tickmarkHeight
     radius: 3 / 90 * outerRadius
@@ -23,9 +24,9 @@ CircularGaugeStyle {
   }
 
   minorTickmark: Rectangle {
-    color: styleData.value === 2700 ? "#e30000" : "#ffffff"
-    width: styleData.value === 2700 ? 3 / 90 * outerRadius : 1.5 / 90 * outerRadius
-    height: styleData.value === 2700 ? style.tickmarkHeight : style.minorTickmarkHeight
+    color: parent.value === 2700 ? "#e30000" : "#ffffff"
+    width: parent.value === 2700 ? 3 / 90 * outerRadius : 1.5 / 90 * outerRadius
+    height: parent.value === 2700 ? style.tickmarkHeight : style.minorTickmarkHeight
     radius: 3 / 90 * outerRadius
     antialiasing: true
   }
@@ -33,7 +34,7 @@ CircularGaugeStyle {
   tickmarkLabel: Text {
     font.family: "Century Gothic"
     font.pixelSize: Math.max(6, outerRadius * 0.15)
-    text: styleData.value / 100
+    text: parent.value / 100
     antialiasing: true
     color: "#ffffff"
     font.weight: Font.Black
@@ -58,6 +59,7 @@ CircularGaugeStyle {
     height: 2 * outerRadius
     radius: outerRadius
     color: "#181818"
+    // color: "#181818"
 
     CustomCanvas {
       anchors.fill: parent
