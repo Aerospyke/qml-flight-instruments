@@ -74,20 +74,70 @@ Item {
         centerY: height / 2
         radiusX: outerRadius - 10
         radiusY: outerRadius - 10
-        startAngle: style.minimumValueAngle
+        startAngle: style.minimumValueAngle - 90
         sweepAngle: root.normalizedValue * root.angleRange
       }
     }
   }
 
+  // Minor Tickmarks
+  Repeater {
+    model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
+
+    Item {
+      // TODO: use valueToAngle
+      // property real angle: style.minimumValueAngle +
+      //     (index * style.tickmarkStepSize) /
+      //     (style.minorTickmarkCount * (maximumValue - minimumValue)) * root.angleRange
+
+      property real angle: style.minimumValueAngle - 90 +
+          (index * style.tickmarkStepSize) /
+          (style.minorTickmarkCount * (maximumValue - minimumValue)) * root.angleRange
+
+      x: root.width / 2
+      y: root.height / 2
+
+      anchors.centerIn: root
+      // property real angle: index * 30       // 360° / 12 = 30°
+      property real tick_x_position: (outerRadius - 10) * Math.cos(3.14159 / 180 * angle)
+      property real tick_y_position: (outerRadius - 10) * Math.sin(3.14159 / 180 * angle)
+
+      Loader {
+        sourceComponent: style.minorTickmark
+        // anchors.horizontalCenter: parent.horizontalCenter
+        // y: -outerRadius + style.minorTickmarkInset
+        // rotation: parent.angle
+        //
+        rotation: parent.angle + 90
+        x: tick_x_position - width * 0.5
+        y: tick_y_position - height * 0.5
+      }
+
+      // Fallback, if minor Tickmark not defined
+      Rectangle {
+        visible: !style.minorTickmark && (index % style.minorTickmarkCount !== 0)
+        width: style.minorTickmarkWidth
+        height: style.minorTickmarkLength
+        color: style.minorTickmarkColor
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: -outerRadius + style.minorTickmarkInset
+        transformOrigin: Item.Bottom
+        rotation: parent.angle
+      }
+    }
+  }
+  
   // Major Tickmarks
   Repeater {
-    // model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize) + 1
-    model: 12
+    model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize) + 1
+    // model: 12
 
     Item {
       anchors.centerIn: root
-      property real angle: index * 30       // 360° / 12 = 30°
+      // property real angle: index * 30       // 360° / 12 = 30°
+      property real angle: style.minimumValueAngle - 90 +
+          (index * style.tickmarkStepSize) /
+          ((maximumValue - minimumValue)) * root.angleRange
       property real tick_x_position: (outerRadius - 10) * Math.cos(3.14159 / 180 * angle)
       property real tick_y_position: (outerRadius - 10) * Math.sin(3.14159 / 180 * angle)
 
@@ -99,16 +149,31 @@ Item {
 
       }
     }
+    // Fallback, if major tickmark is not defined
+    // Rectangle {
+    //   visible: !style.tickmark
+    //   width: style.majorTickmarkWidth
+    //   height: style.majorTickmarkLength
+    //   color: style.tickmarkColor
+    //   anchors.horizontalCenter: parent.horizontalCenter
+    //   y: -outerRadius + style.tickmarkInset
+    //   transformOrigin: Item.Bottom
+    //   rotation: parent.angle
+    // }
   }
   Repeater {
-    // model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize) + 1
-    model: 12
+    model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize) + 1
+    // model: 12
+    // model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
+
     // anchors.centerIn: parent
     Item {
       // property real angle: style.minimumValueAngle + (index * style.labelStepSize) / (maximumValue - minimumValue) * root.angleRange
       anchors.centerIn: root
-      property real angle: index * 30       // 360° / 12 = 30°
-
+      // property real angle: index * 30       // 360° / 12 = 30°
+      property real angle: style.minimumValueAngle - 90 +
+          (index * style.tickmarkStepSize) /
+          ((maximumValue - minimumValue)) * root.angleRange
       // x: root.width / 2
       // y: root.height / 2
       property real tick_x_position: (outerRadius - style.labelInset) * Math.cos(3.14159 / 180 * angle)
@@ -147,37 +212,6 @@ Item {
   //   }
   // }
 
-  // Minor Tickmarks
-  Repeater {
-    model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
-
-    Item {
-      property real angle: style.minimumValueAngle +
-          (index * style.tickmarkStepSize) /
-          (style.minorTickmarkCount * (maximumValue - minimumValue)) * root.angleRange
-
-      x: root.width / 2
-      y: root.height / 2
-
-      Loader {
-        sourceComponent: style.minorTickmark
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: -outerRadius + style.minorTickmarkInset
-        rotation: parent.angle
-      }
-
-      Rectangle {
-        visible: !style.minorTickmark && (index % style.minorTickmarkCount !== 0)
-        width: style.minorTickmarkWidth
-        height: style.minorTickmarkLength
-        color: style.minorTickmarkColor
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: -outerRadius + style.minorTickmarkInset
-        transformOrigin: Item.Bottom
-        rotation: parent.angle
-      }
-    }
-  }
 
   // Needle (Either explicit style.needle, or fallback rectangle if no style.needle defined)
   Item {

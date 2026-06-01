@@ -15,7 +15,7 @@ CircularGaugeStyle {
   property double tickmarkHeight: 20 / 90 * outerRadius
 
   tickmark: Rectangle {
-    color: "#BBBBBB"
+    color: "#ffffff"
     // width: 40
     width: 3 / 90 * outerRadius
     height: style.tickmarkHeight
@@ -24,7 +24,8 @@ CircularGaugeStyle {
   }
 
   minorTickmark: Rectangle {
-    color: parent.value === 2700 ? "#e30000" : "#ffffff"
+    // color: parent.value === parent.maximumValue ? "#e30000" : "#ffffff"
+    color: parent.value === 2700 ? "#e30000" : "#BBBBBB"
     width: parent.value === 2700 ? 3 / 90 * outerRadius : 1.5 / 90 * outerRadius
     height: parent.value === 2700 ? style.tickmarkHeight : style.minorTickmarkHeight
     radius: 3 / 90 * outerRadius
