@@ -126,7 +126,7 @@ Item {
       }
     }
   }
-  
+
   // Major Tickmarks
   Repeater {
     model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize) + 1
@@ -162,29 +162,29 @@ Item {
     // }
   }
   Repeater {
-    model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize) + 1
-    // model: 12
-    // model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
+    model: Math.floor((maximumValue - minimumValue) / style.labelStepSize) + 1
 
-    // anchors.centerIn: parent
     Item {
-      // property real angle: style.minimumValueAngle + (index * style.labelStepSize) / (maximumValue - minimumValue) * root.angleRange
-      anchors.centerIn: root
-      // property real angle: index * 30       // 360° / 12 = 30°
-      property real angle: style.minimumValueAngle - 90 +
-          (index * style.tickmarkStepSize) /
-          ((maximumValue - minimumValue)) * root.angleRange
-      // x: root.width / 2
-      // y: root.height / 2
-      property real tick_x_position: (outerRadius - style.labelInset) * Math.cos(3.14159 / 180 * angle)
-      property real tick_y_position: (outerRadius - style.labelInset) * Math.sin(3.14159 / 180 * angle)
+      id: labelContainer
+
+      property real angleDeg: -90.0 + style.minimumValueAngle +
+          (index * style.labelStepSize) / (maximumValue - minimumValue) * root.angleRange
+
+      property real labelRadius: outerRadius - style.labelInset
+
+      property real xPos: root.width / 2 + labelRadius * Math.cos(angleDeg * Math.PI / 180)
+      property real yPos: root.height / 2 + labelRadius * Math.sin(angleDeg * Math.PI / 180)
+
       Loader {
         sourceComponent: style.tickmarkLabel
-        // anchors.horizontalCenter: parent.horizontalCenter
-        // y: -outerRadius + style.labelInset
-        rotation: parent.angle + 90
-        x: tick_x_position - width * 0.5
-        y: tick_y_position - height * 0.5
+
+        // Pass values to the label
+        property real value: root.minimumValue + index * style.labelStepSize
+        property real angle: labelContainer.angleDeg
+
+        x: labelContainer.xPos - width / 2
+        y: labelContainer.yPos - height / 2
+        rotation: angle + 90
       }
     }
   }

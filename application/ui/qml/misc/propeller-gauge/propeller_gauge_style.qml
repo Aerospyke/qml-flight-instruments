@@ -33,12 +33,21 @@ CircularGaugeStyle {
   }
 
   tickmarkLabel: Text {
+    id: labelText
+
+    // These are passed from the Loader
+    property real value: 0
+    property real angle: 0
+
     font.family: "Century Gothic"
     font.pixelSize: Math.max(6, outerRadius * 0.15)
-    text: parent.value / 100
+    text: (value / 100).toFixed(0)
     antialiasing: true
     color: "#ffffff"
     font.weight: Font.Black
+
+    horizontalAlignment: Text.AlignHCenter
+    verticalAlignment: Text.AlignVCenter
   }
 
   foreground: Item {
