@@ -2,8 +2,8 @@ import QtQuick
 
 QtObject {
   // Exposed from CircularGauge
-  property real outerRadius: 0
-  property var parentGauge: null     // ← Will hold reference to CircularGauge
+  property real outerRadius: !parentGauge ? 0 : Math.min(parentGauge.width, parentGauge.height) / 2
+  property CircularGauge parentGauge
 
   // Angles
   property real minimumValueAngle: -135

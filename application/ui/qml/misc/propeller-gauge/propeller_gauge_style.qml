@@ -6,7 +6,7 @@ CircularGaugeStyle {
   maximumValueAngle: 36
   tickmarkStepSize: 500
   labelStepSize: 500
-  minorTickmarkCount: 4
+  minorTickmarkCount: 5
   labelInset: 20 / 90 * outerRadius
   tickmarkInset: 6 / 90 * outerRadius
   minorTickmarkInset: 6 / 90 * outerRadius
@@ -70,8 +70,8 @@ CircularGaugeStyle {
     height: 2 * outerRadius
     radius: outerRadius
     color: "#181818"
-    // color: "#181818"
 
+    // Green Range On Dial
     CustomCanvas {
       anchors.fill: parent
       onPaint: {
@@ -80,7 +80,9 @@ CircularGaugeStyle {
           context.lineWidth = 7 / 90 * outerRadius
           context.beginPath()
           context.arc(outerRadius, outerRadius, outerRadius - tickmarkInset - 0.5 * style.minorTickmarkHeight,
-              (valueToAngle(2100) - 90) * Math.PI / 180.0, (valueToAngle(2700) - 90) * Math.PI / 180.0)
+              style.valueToAngle(2100) * 3.14159 / 180, style.valueToAngle(2700) * 3.14159 / 180)
+          // context.arc(outerRadius, outerRadius, outerRadius - tickmarkInset - 0.5 * style.minorTickmarkHeight,
+          //     10 * 3.14159 / 180, 40 * 3.14159 / 180)
           context.strokeStyle = "#00c300"
           context.stroke()
         }

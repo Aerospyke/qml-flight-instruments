@@ -14,18 +14,8 @@ Item {
   {
   }
 
-  // ==================== Calculated Values ====================
-  readonly property real angleRange: style.maximumValueAngle - style.minimumValueAngle
-  readonly property real normalizedValue: Math.max(0, Math.min(1,
-      (value - minimumValue) / (maximumValue - minimumValue)))
-
-  readonly property real outerRadius: Math.min(width, height) / 2
-
-  // Expose outerRadius to the style object
   Component.onCompleted: {
-    style.outerRadius = Qt.binding(function () {
-      return root.outerRadius;
-    })
+    style.parentGauge = Qt.binding(() => root)
   }
 
   // ==================== Background ====================
@@ -49,10 +39,10 @@ Item {
       PathAngleArc {
         centerX: width / 2
         centerY: height / 2
-        radiusX: outerRadius - 10
-        radiusY: outerRadius - 10
-        startAngle: style.minimumValueAngle
-        sweepAngle: root.normalizedValue * root.angleRange
+        radiusX: style.outerRadius - 10
+        radiusY: style.outerRadius - 10
+        startAngle: style.valueToAngle(0)
+        sweepAngle: style.valueToAngle(root.value) - startAngle
       }
     }
   }
@@ -62,17 +52,13 @@ Item {
     model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
 
     Item {
-      // TODO: use valueToAngle
-      property real angle: style.minimumValueAngle +
-          (index * style.tickmarkStepSize) /
-          (style.minorTickmarkCount * (maximumValue - minimumValue)) * root.angleRange
-
+      property real angle: style.valueToAngle((index * style.tickmarkStepSize) / style.minorTickmarkCount)
       x: root.width / 2
       y: root.height / 2
 
       anchors.centerIn: root
-      property real tick_x_position: (outerRadius - 10) * Math.cos(3.14159 / 180 * angle)
-      property real tick_y_position: (outerRadius - 10) * Math.sin(3.14159 / 180 * angle)
+      property real tick_x_position: (style.outerRadius - 10) * Math.cos(3.14159 / 180 * angle)
+      property real tick_y_position: (style.outerRadius - 10) * Math.sin(3.14159 / 180 * angle)
 
       Loader {
         sourceComponent: style.minorTickmark
@@ -89,7 +75,7 @@ Item {
         height: style.minorTickmarkLength
         color: style.minorTickmarkColor
         anchors.horizontalCenter: parent.horizontalCenter
-        y: -outerRadius + style.minorTickmarkInset
+        y: -style.outerRadius + style.minorTickmarkInset
         transformOrigin: Item.Bottom
         rotation: parent.angle
       }
@@ -103,11 +89,9 @@ Item {
 
     Item {
       anchors.centerIn: root
-      property real angle: style.minimumValueAngle +
-          (index * style.tickmarkStepSize) /
-          ((maximumValue - minimumValue)) * root.angleRange
-      property real tick_x_position: (outerRadius - 10) * Math.cos(3.14159 / 180 * angle)
-      property real tick_y_position: (outerRadius - 10) * Math.sin(3.14159 / 180 * angle)
+      property real angle: style.valueToAngle(index * style.tickmarkStepSize)
+      property real tick_x_position: (style.outerRadius - 10) * Math.cos(3.14159 / 180 * angle)
+      property real tick_y_position: (style.outerRadius - 10) * Math.sin(3.14159 / 180 * angle)
 
       Loader {
         sourceComponent: style.tickmark
@@ -125,10 +109,9 @@ Item {
     Item {
       id: labelContainer
 
-      property real angleDeg: style.minimumValueAngle +
-          (index * style.labelStepSize) / (maximumValue - minimumValue) * root.angleRange
+      property real angleDeg: style.valueToAngle(index * style.labelStepSize)
 
-      property real labelRadius: outerRadius - style.labelInset
+      property real labelRadius: style.outerRadius - style.labelInset
 
       property real xPos: root.width / 2 + labelRadius * Math.cos(angleDeg * Math.PI / 180)
       property real yPos: root.height / 2 + labelRadius * Math.sin(angleDeg * Math.PI / 180)
@@ -151,7 +134,7 @@ Item {
   // Needle (Either explicit style.needle, or fallback rectangle if no style.needle defined)
   Item {
     anchors.centerIn: parent
-    rotation: 90.0 + style.minimumValueAngle + root.normalizedValue * root.angleRange
+    rotation: 90.0 + style.valueToAngle(root.value)
 
     Loader {
       sourceComponent: style.needle
@@ -163,11 +146,11 @@ Item {
     Rectangle {
       visible: !style.needle
       width: style.needleWidth
-      height: style.needleLength * outerRadius
+      height: style.needleLength * style.outerRadius
       color: style.needleColor
       radius: 2
       anchors.horizontalCenter: parent.horizontalCenter
-      y: -style.needleLength * outerRadius + 12
+      y: -style.needleLength * style.outerRadius + 12
     }
 
     Rectangle {  // Hub

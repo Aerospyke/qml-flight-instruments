@@ -1,6 +1,7 @@
 import QtQuick 2.15
 
 Item {
+  id: propeller_gauge_root
   property double radius: 300
   property double rpm: 0
 
@@ -18,6 +19,7 @@ Item {
     stepSize: 1
     value: rpm
     style: PropellerGaugeStyle {
+      parentGauge: propeller_gauge_root
     }
   }
 
