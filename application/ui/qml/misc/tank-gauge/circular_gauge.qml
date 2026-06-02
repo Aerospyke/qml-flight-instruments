@@ -34,29 +34,6 @@ Item {
     sourceComponent: style.background
   }
 
-  // Background Arc (fallback)
-  // Shape {
-  //   anchors.fill: parent
-  //   antialiasing: true
-  //   visible: !style.background
-  //
-  //   ShapePath {
-  //     strokeColor: style.backgroundColor
-  //     strokeWidth: style.backgroundThickness
-  //     fillColor: "transparent"
-  //     capStyle: ShapePath.RoundCap
-  //
-  //     PathAngleArc {
-  //       centerX: width / 2
-  //       centerY: height / 2
-  //       radiusX: outerRadius - 10
-  //       radiusY: outerRadius - 10
-  //       startAngle: style.minimumValueAngle
-  //       sweepAngle: root.angleRange
-  //     }
-  //   }
-  // }
-
   // Progress Arc
   Shape {
     anchors.fill: parent
@@ -74,7 +51,7 @@ Item {
         centerY: height / 2
         radiusX: outerRadius - 10
         radiusY: outerRadius - 10
-        startAngle: style.minimumValueAngle - 90
+        startAngle: style.minimumValueAngle
         sweepAngle: root.normalizedValue * root.angleRange
       }
     }
@@ -86,11 +63,7 @@ Item {
 
     Item {
       // TODO: use valueToAngle
-      // property real angle: style.minimumValueAngle +
-      //     (index * style.tickmarkStepSize) /
-      //     (style.minorTickmarkCount * (maximumValue - minimumValue)) * root.angleRange
-
-      property real angle: style.minimumValueAngle - 90 +
+      property real angle: style.minimumValueAngle +
           (index * style.tickmarkStepSize) /
           (style.minorTickmarkCount * (maximumValue - minimumValue)) * root.angleRange
 
@@ -98,16 +71,12 @@ Item {
       y: root.height / 2
 
       anchors.centerIn: root
-      // property real angle: index * 30       // 360° / 12 = 30°
       property real tick_x_position: (outerRadius - 10) * Math.cos(3.14159 / 180 * angle)
       property real tick_y_position: (outerRadius - 10) * Math.sin(3.14159 / 180 * angle)
 
       Loader {
         sourceComponent: style.minorTickmark
-        // anchors.horizontalCenter: parent.horizontalCenter
-        // y: -outerRadius + style.minorTickmarkInset
-        // rotation: parent.angle
-        //
+
         rotation: parent.angle + 90
         x: tick_x_position - width * 0.5
         y: tick_y_position - height * 0.5
@@ -134,8 +103,7 @@ Item {
 
     Item {
       anchors.centerIn: root
-      // property real angle: index * 30       // 360° / 12 = 30°
-      property real angle: style.minimumValueAngle - 90 +
+      property real angle: style.minimumValueAngle +
           (index * style.tickmarkStepSize) /
           ((maximumValue - minimumValue)) * root.angleRange
       property real tick_x_position: (outerRadius - 10) * Math.cos(3.14159 / 180 * angle)
@@ -149,25 +117,15 @@ Item {
 
       }
     }
-    // Fallback, if major tickmark is not defined
-    // Rectangle {
-    //   visible: !style.tickmark
-    //   width: style.majorTickmarkWidth
-    //   height: style.majorTickmarkLength
-    //   color: style.tickmarkColor
-    //   anchors.horizontalCenter: parent.horizontalCenter
-    //   y: -outerRadius + style.tickmarkInset
-    //   transformOrigin: Item.Bottom
-    //   rotation: parent.angle
-    // }
   }
+
   Repeater {
     model: Math.floor((maximumValue - minimumValue) / style.labelStepSize) + 1
 
     Item {
       id: labelContainer
 
-      property real angleDeg: -90.0 + style.minimumValueAngle +
+      property real angleDeg: style.minimumValueAngle +
           (index * style.labelStepSize) / (maximumValue - minimumValue) * root.angleRange
 
       property real labelRadius: outerRadius - style.labelInset
@@ -178,45 +136,22 @@ Item {
       Loader {
         sourceComponent: style.tickmarkLabel
 
-        // Pass values to the label
-        property real value: root.minimumValue + index * style.labelStepSize
-        property real angle: labelContainer.angleDeg
+        // Force property assignment after loading
+        onLoaded: {
+          item.value = root.minimumValue + index * style.labelStepSize
+        }
 
         x: labelContainer.xPos - width / 2
         y: labelContainer.yPos - height / 2
-        rotation: angle + 90
+        rotation: labelContainer.angleDeg + 90
       }
     }
   }
-  // Labels
-  // Repeater {
-  //   model: Math.floor((maximumValue - minimumValue) / style.labelStepSize) + 1
-  //
-  //   Item {
-  //     property real angle: style.minimumValueAngle + (index * style.labelStepSize) / (maximumValue - minimumValue) * root.angleRange
-  //
-  //     // x: root.width / 2
-  //     // y: root.height / 2
-  //     property real tick_x_position: (outerRadius - style.labelInset) * Math.cos(3.14159 / 180 * angle)
-  //     property real tick_y_position: (outerRadius - style.labelInset) * Math.sin(3.14159 / 180 * angle)
-  //     Loader {
-  //       sourceComponent: style.tickmarkLabel
-  //       anchors.horizontalCenter: parent.horizontalCenter
-  //
-  //       // y: -outerRadius + style.labelInset
-  //       rotation: parent.angle + 90
-  //
-  //       x: tick_x_position - width * 0.5
-  //       y: tick_y_position - height * 0.5
-  //     }
-  //   }
-  // }
-
 
   // Needle (Either explicit style.needle, or fallback rectangle if no style.needle defined)
   Item {
     anchors.centerIn: parent
-    rotation: style.minimumValueAngle + root.normalizedValue * root.angleRange
+    rotation: 90.0 + style.minimumValueAngle + root.normalizedValue * root.angleRange
 
     Loader {
       sourceComponent: style.needle

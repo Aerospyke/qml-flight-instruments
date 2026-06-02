@@ -2,8 +2,8 @@ import QtQuick 2.15
 
 CircularGaugeStyle {
   id: style
-  minimumValueAngle: -126
-  maximumValueAngle: 126
+  minimumValueAngle: -216
+  maximumValueAngle: 36
   tickmarkStepSize: 500
   labelStepSize: 500
   minorTickmarkCount: 4
@@ -32,22 +32,23 @@ CircularGaugeStyle {
     antialiasing: true
   }
 
-  tickmarkLabel: Text {
-    id: labelText
+  tickmarkLabel: Component {
+    Text {
+      id: labelText
 
-    // These are passed from the Loader
-    property real value: 0
-    property real angle: 0
+      property real value: 0
 
-    font.family: "Century Gothic"
-    font.pixelSize: Math.max(6, outerRadius * 0.15)
-    text: (value / 100).toFixed(0)
-    antialiasing: true
-    color: "#ffffff"
-    font.weight: Font.Black
+      font.family: "Century Gothic"
+      font.pixelSize: Math.max(6, outerRadius * 0.15)
+      text: (value / 100).toFixed(0)
+      antialiasing: true
+      color: "#ffffff"
+      font.weight: Font.Black
 
-    horizontalAlignment: Text.AlignHCenter
-    verticalAlignment: Text.AlignVCenter
+      horizontalAlignment: Text.AlignHCenter
+      verticalAlignment: Text.AlignVCenter
+
+    }
   }
 
   foreground: Item {
