@@ -63,6 +63,12 @@ Item {
       Loader {
         sourceComponent: style.minorTickmark
 
+        onLoaded: {
+          if (item) {
+            item.value = index * (style.tickmarkStepSize / style.minorTickmarkCount)
+          }
+        }
+
         rotation: parent.angle + 90
         x: tick_x_position - width * 0.5
         y: tick_y_position - height * 0.5

@@ -16,7 +16,6 @@ CircularGaugeStyle {
 
   tickmark: Rectangle {
     color: "#ffffff"
-    // width: 40
     width: 3 / 90 * outerRadius
     height: style.tickmarkHeight
     radius: 3 / 90 * outerRadius
@@ -24,10 +23,11 @@ CircularGaugeStyle {
   }
 
   minorTickmark: Rectangle {
-    // color: parent.value === parent.maximumValue ? "#e30000" : "#ffffff"
-    color: parent.value === 2700 ? "#e30000" : "#BBBBBB"
-    width: parent.value === 2700 ? 3 / 90 * outerRadius : 1.5 / 90 * outerRadius
-    height: parent.value === 2700 ? style.tickmarkHeight : style.minorTickmarkHeight
+    property real value: 0
+
+    color: value === 2700 ? "#e30000" : "#BBBBBB"
+    height: value === 2700 ? style.tickmarkHeight : style.minorTickmarkHeight
+    width: 1.5 / 90 * outerRadius
     radius: 3 / 90 * outerRadius
     antialiasing: true
   }
@@ -79,10 +79,8 @@ CircularGaugeStyle {
           context.reset()
           context.lineWidth = 7 / 90 * outerRadius
           context.beginPath()
-          context.arc(outerRadius, outerRadius, outerRadius - tickmarkInset - 0.5 * style.minorTickmarkHeight,
+          context.arc(outerRadius, outerRadius, outerRadius - 0.35 * style.minorTickmarkHeight,
               style.valueToAngle(2100) * 3.14159 / 180, style.valueToAngle(2700) * 3.14159 / 180)
-          // context.arc(outerRadius, outerRadius, outerRadius - tickmarkInset - 0.5 * style.minorTickmarkHeight,
-          //     10 * 3.14159 / 180, 40 * 3.14159 / 180)
           context.strokeStyle = "#00c300"
           context.stroke()
         }
