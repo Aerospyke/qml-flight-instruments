@@ -128,12 +128,17 @@ Item {
       property real yPos: root.height / 2 + labelRadius * Math.sin(angleDeg * Math.PI / 180)
 
       Loader {
+        id: tickLabelLoader
         sourceComponent: style.tickmarkLabel
 
         onLoaded: {
-          if (item && item.hasOwnProperty("value")) {
+          if (!item)
+            return
+          if (item.hasOwnProperty("value"))
             item.value = labelContainer.labelValue
-          }
+          item.font.pixelSize = Qt.binding(function () {
+            return style.tickmarkLabelPixelSize
+          })
         }
 
         x: labelContainer.xPos - width / 2

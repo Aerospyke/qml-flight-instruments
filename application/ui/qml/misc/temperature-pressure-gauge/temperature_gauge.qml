@@ -41,7 +41,6 @@ CircularGauge {
       height: style.tickmarkHeight
       radius: 0.01 * style.outerRadius
       antialiasing: true
-      // visible: true
       visible: value === 75 ||
           value === 100 ||
           value === 150 ||
@@ -49,7 +48,7 @@ CircularGauge {
           value === 245
     }
 
-    tickmarkLabelPixelSize: Math.max(12, Math.round(0.2 * outerRadius))
+    tickmarkLabelPixelSize: Math.max(6, Math.round(0.1 * outerRadius))
 
     tickmarkLabel: Component {
       Text {
@@ -58,12 +57,10 @@ CircularGauge {
         text: value
         color: "#ffffff"
         font.family: "Century Gothic"
-        font.pixelSize: tickmarkLabelPixelSize
         font.weight: Font.Black
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         antialiasing: true
-        // visible: true
         visible: value === 75 ||
             value === 100 ||
             value === 150 ||
@@ -94,7 +91,7 @@ CircularGauge {
             context.beginPath()
             context.arc(style.outerRadius,
                 style.outerRadius,
-                style.outerRadius - style.tickmarkInset - context.lineWidth / 2,
+                style.outerRadius - context.lineWidth / 4,
                 (style.valueToAngle(245)) * Math.PI / 180.0,
                 (style.valueToAngle(100)) * Math.PI / 180.0)
             context.strokeStyle = "#00c300"
