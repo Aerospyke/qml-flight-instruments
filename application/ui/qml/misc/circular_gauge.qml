@@ -49,12 +49,13 @@ Item {
 
   // ==================== Minor Tick Marks ====================
   Repeater {
-    model: Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
+    model: style.minorTickmarkCount > 0
+        ? Math.floor((maximumValue - minimumValue) / style.tickmarkStepSize * style.minorTickmarkCount) + 1
+        : 0
 
     Item {
-      property real angle: style.valueToAngle((index * style.tickmarkStepSize) / style.minorTickmarkCount)
-      x: root.width / 2
-      y: root.height / 2
+      property real tickValue: root.minimumValue + index * (style.tickmarkStepSize / style.minorTickmarkCount)
+      property real angle: style.valueToAngle(tickValue)
 
       anchors.centerIn: root
       property real tick_x_position: (style.outerRadius - 10) * Math.cos(Math.PI / 180 * angle)
@@ -65,13 +66,13 @@ Item {
 
         onLoaded: {
           if (item && item.hasOwnProperty("value")) {
-            item.value = index * (style.tickmarkStepSize / style.minorTickmarkCount)
+            item.value = parent.tickValue
           }
         }
 
         rotation: parent.angle + 90
-        x: tick_x_position - width * 0.5
-        y: tick_y_position - height * 0.5
+        x: parent.tick_x_position - width * 0.5
+        y: parent.tick_y_position - height * 0.5
       }
 
       // Fallback, if minor Tick Mark not defined
@@ -94,31 +95,34 @@ Item {
 
     Item {
       anchors.centerIn: root
-      property real angle: style.valueToAngle(index * style.tickmarkStepSize)
+      property real tickValue: root.minimumValue + index * style.tickmarkStepSize
+      property real angle: style.valueToAngle(tickValue)
       property real tick_x_position: (style.outerRadius - 10) * Math.cos(Math.PI / 180 * angle)
       property real tick_y_position: (style.outerRadius - 10) * Math.sin(Math.PI / 180 * angle)
 
       Loader {
         sourceComponent: style.tickmark
         rotation: parent.angle + 90
-        x: tick_x_position - width * 0.5
-        y: tick_y_position - height * 0.5
+        x: parent.tick_x_position - width * 0.5
+        y: parent.tick_y_position - height * 0.5
         onLoaded: {
           if (item && item.hasOwnProperty("value")) {
-            item.value = index * (style.tickmarkStepSize / style.minorTickmarkCount)
+            item.value = parent.tickValue
           }
         }
       }
     }
   }
 
+  // ==================== Major Tick Mark Labels ====================
   Repeater {
     model: Math.floor((maximumValue - minimumValue) / style.labelStepSize) + 1
 
     Item {
       id: labelContainer
 
-      property real angleDeg: style.valueToAngle(index * style.labelStepSize)
+      property real labelValue: root.minimumValue + index * style.labelStepSize
+      property real angleDeg: style.valueToAngle(labelValue)
       property real labelRadius: style.outerRadius - style.labelInset
       property real xPos: root.width / 2 + labelRadius * Math.cos(angleDeg * Math.PI / 180)
       property real yPos: root.height / 2 + labelRadius * Math.sin(angleDeg * Math.PI / 180)
@@ -126,10 +130,9 @@ Item {
       Loader {
         sourceComponent: style.tickmarkLabel
 
-        // Force property assignment after loading
         onLoaded: {
           if (item && item.hasOwnProperty("value")) {
-            item.value = root.minimumValue + index * style.labelStepSize
+            item.value = labelContainer.labelValue
           }
         }
 
