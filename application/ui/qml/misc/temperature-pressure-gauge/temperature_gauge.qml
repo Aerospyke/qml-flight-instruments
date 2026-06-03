@@ -18,6 +18,7 @@ CircularGauge {
     // }
     minimumValueAngle: 45
     maximumValueAngle: -45
+    dialCenterOffsetX: -0.06 * outerRadius
     tickmarkStepSize: 5
     labelStepSize: 5
     minorTickmarkCount: 0
@@ -87,11 +88,11 @@ CircularGauge {
         onPaint: {
           if (context) {
             context.reset()
-            context.lineWidth = 0.075 * style.outerRadius
+            context.lineWidth = style.greenArcLineWidth
             context.beginPath()
-            context.arc(style.outerRadius,
-                style.outerRadius,
-                style.outerRadius - context.lineWidth / 4,
+            context.arc(style.outerRadius + style.dialCenterOffsetX,
+                style.outerRadius + style.dialCenterOffsetY,
+                style.greenArcRadius,
                 (style.valueToAngle(245)) * Math.PI / 180.0,
                 (style.valueToAngle(100)) * Math.PI / 180.0)
             context.strokeStyle = "#00c300"

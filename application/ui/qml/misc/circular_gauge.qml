@@ -37,10 +37,10 @@ Item {
       capStyle: ShapePath.RoundCap
 
       PathAngleArc {
-        centerX: width / 2
-        centerY: height / 2
-        radiusX: style.outerRadius - 10
-        radiusY: style.outerRadius - 10
+        centerX: root.width / 2 + style.dialCenterOffsetX
+        centerY: root.height / 2 + style.dialCenterOffsetY
+        radiusX: style.greenArcRadius
+        radiusY: style.greenArcRadius
         startAngle: style.valueToAngle(minimumValue)
         sweepAngle: style.valueToAngle(root.value) - startAngle
       }
@@ -58,8 +58,10 @@ Item {
       property real angle: style.valueToAngle(tickValue)
 
       anchors.centerIn: root
-      property real tick_x_position: (style.outerRadius - 10) * Math.cos(Math.PI / 180 * angle)
-      property real tick_y_position: (style.outerRadius - 10) * Math.sin(Math.PI / 180 * angle)
+      anchors.horizontalCenterOffset: style.dialCenterOffsetX
+      anchors.verticalCenterOffset: style.dialCenterOffsetY
+      property real tick_x_position: style.tickmarkOrbitRadius * Math.cos(Math.PI / 180 * angle)
+      property real tick_y_position: style.tickmarkOrbitRadius * Math.sin(Math.PI / 180 * angle)
 
       Loader {
         sourceComponent: style.minorTickmark
@@ -95,10 +97,12 @@ Item {
 
     Item {
       anchors.centerIn: root
+      anchors.horizontalCenterOffset: style.dialCenterOffsetX
+      anchors.verticalCenterOffset: style.dialCenterOffsetY
       property real tickValue: root.minimumValue + index * style.tickmarkStepSize
       property real angle: style.valueToAngle(tickValue)
-      property real tick_x_position: (style.outerRadius - 10) * Math.cos(Math.PI / 180 * angle)
-      property real tick_y_position: (style.outerRadius - 10) * Math.sin(Math.PI / 180 * angle)
+      property real tick_x_position: style.tickmarkOrbitRadius * Math.cos(Math.PI / 180 * angle)
+      property real tick_y_position: style.tickmarkOrbitRadius * Math.sin(Math.PI / 180 * angle)
 
       Loader {
         sourceComponent: style.tickmark
@@ -124,8 +128,8 @@ Item {
       property real labelValue: root.minimumValue + index * style.labelStepSize
       property real angleDeg: style.valueToAngle(labelValue)
       property real labelRadius: style.outerRadius - style.labelInset
-      property real xPos: root.width / 2 + labelRadius * Math.cos(angleDeg * Math.PI / 180)
-      property real yPos: root.height / 2 + labelRadius * Math.sin(angleDeg * Math.PI / 180)
+      property real xPos: root.width / 2 + style.dialCenterOffsetX + labelRadius * Math.cos(angleDeg * Math.PI / 180)
+      property real yPos: root.height / 2 + style.dialCenterOffsetY + labelRadius * Math.sin(angleDeg * Math.PI / 180)
 
       Loader {
         id: tickLabelLoader
@@ -151,6 +155,8 @@ Item {
   // ==================== Needle ====================
   Item {
     anchors.centerIn: parent
+    anchors.horizontalCenterOffset: style.dialCenterOffsetX
+    anchors.verticalCenterOffset: style.dialCenterOffsetY
     rotation: 90.0 + style.valueToAngle(root.value)
 
     Loader {
