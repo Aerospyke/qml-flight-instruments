@@ -9,10 +9,6 @@ QtObject {
   property real minimumValueAngle: -135
   property real maximumValueAngle: 135
 
-  // Shift dial geometry for dual half-gauge layouts (negative = left)
-  property real dialCenterOffsetX: 0
-  property real dialCenterOffsetY: 0
-
   // Background
   property Component background: null
   property color backgroundColor: "#333333"
@@ -40,11 +36,6 @@ QtObject {
 
   property real tickmarkInset: 12
   property real minorTickmarkInset: 16
-
-  // Shared geometry: major tick outer edge == green arc outer edge
-  property real greenArcLineWidth: 0.075 * outerRadius
-  property real tickmarkOrbitRadius: outerRadius - tickmarkInset - tickmarkHeight / 2
-  property real greenArcRadius: outerRadius - tickmarkInset - greenArcLineWidth / 2
 
   // Labels
   property real labelStepSize: 10
