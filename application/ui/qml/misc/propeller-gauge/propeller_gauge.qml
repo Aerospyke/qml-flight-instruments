@@ -8,7 +8,6 @@ Item {
   width: 2 * radius
   height: 2 * radius
 
-
   CircularGauge {
     width: parent.width
     height: parent.height

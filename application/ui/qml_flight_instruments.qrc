@@ -26,6 +26,7 @@
     <file alias="FuelFlowGauge.qml">qml/misc/egt-fuel-flow-gauge/fuel_flow_gauge.qml</file>
     <file alias="PropellerGauge.qml">qml/misc/propeller-gauge/propeller_gauge.qml</file>
     <file alias="PropellerGaugeStyle.qml">qml/misc/propeller-gauge/propeller_gauge_style.qml</file>
+    <file alias="SingularGaugeForeground.qml">qml/misc/propeller-gauge/singular_gauge_foreground.qml</file>
     <file alias="CircularGauge.qml">qml/misc/tank-gauge/circular_gauge.qml</file>
     <file alias="CircularGaugeStyle.qml">qml/misc/tank-gauge/circular_gauge_style.qml</file>
     <file alias="BaseTankGauge.qml">qml/misc/tank-gauge/base_tank_gauge.qml</file>
@@ -36,9 +37,8 @@
     <file alias="TemperatureGauge.qml">qml/misc/temperature-pressure-gauge/temperature_gauge.qml</file>
     <file alias="TemperaturePressureGauge.qml">qml/misc/temperature-pressure-gauge/temperature_pressure_gauge.qml</file>
     <file alias="CustomCanvas.qml">qml/misc/util/custom_canvas.qml</file>
-    <file alias="CustomForeground.qml">qml/misc/util/custom_foreground.qml</file>
     <file alias="CustomImageUtil.qml">qml/misc/util/custom_image.qml</file>
-    <file alias="CustomNeedle.qml">qml/misc/util/custom_needle.qml</file>
+    <file alias="GaugeNeedleStandard.qml">qml/misc/util/gauge_needle_standard.qml</file>
     <file alias="CustomTextMiscUtil.qml">qml/misc/util/custom_text.qml</file>
     <file alias="GaugeMask.qml">qml/misc/util/gauge_mask.qml</file>
     <file alias="AmpGauge.qml">qml/misc/vac-amp-gauge/amp_gauge.qml</file>

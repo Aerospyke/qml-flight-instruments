@@ -50,10 +50,10 @@ Window {
     //   amp: pfd.amp
     // }
     //
-    // TemperaturePressureGauge {
-    //   radius: window.radius
-    //   engineTemperature: pfd.engineTemperature
-    //   enginePressure: pfd.enginePressure
-    // }
+    TemperaturePressureGauge {
+      radius: window.radius
+      engineTemperature: pfd.engineTemperature
+      enginePressure: pfd.enginePressure
+    }
   }
 }

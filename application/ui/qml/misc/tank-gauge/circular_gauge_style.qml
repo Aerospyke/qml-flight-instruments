@@ -18,14 +18,14 @@ QtObject {
   property color progressColor: "#4CAF50"
   property real progressThickness: 14
 
-  // Tickmarks
+  // Tick Marks
   property real tickmarkStepSize: 10
   property Component tickmark: null
   property real majorTickmarkLength: 18
   property real majorTickmarkWidth: 3
   property color tickmarkColor: "#AAAAAA"
 
-  // Minor Tickmarks
+  // Minor Tick Marks
   property int minorTickmarkCount: 4
   property Component minorTickmark: null
   property real minorTickmarkLength: 10

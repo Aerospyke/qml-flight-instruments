@@ -50,7 +50,7 @@ CircularGauge {
     foreground: Item {
     }
 
-    needle: CustomNeedle {
+    needle: GaugeNeedleStandard {
       width: 0.075 * outerRadius
       height: 0.95 * outerRadius
     }
