@@ -2,7 +2,7 @@ import QtQuick
 
 QtObject {
   // Exposed from CircularGauge
-  property real outerRadius: !parentGauge ? 0 : Math.min(parentGauge.width, parentGauge.height) / 2
+  property real outerRadius: !parentGauge ? 0.0 : Math.min(parentGauge.width, parentGauge.height) / 2
   property CircularGauge parentGauge
 
   // Angles
@@ -24,6 +24,7 @@ QtObject {
   property real majorTickmarkLength: 18
   property real majorTickmarkWidth: 3
   property color tickmarkColor: "#AAAAAA"
+  property double tickmarkHeight: 20 / 90 * outerRadius
 
   // Minor Tick Marks
   property int minorTickmarkCount: 4
@@ -31,6 +32,7 @@ QtObject {
   property real minorTickmarkLength: 10
   property real minorTickmarkWidth: 2
   property color minorTickmarkColor: "#777777"
+  property double minorTickmarkHeight: 14 / 90 * outerRadius
 
   property real tickmarkInset: 12
   property real minorTickmarkInset: 16

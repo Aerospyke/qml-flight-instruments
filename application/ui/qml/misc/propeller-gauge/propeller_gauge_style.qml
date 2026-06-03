@@ -1,8 +1,7 @@
 import QtQuick 2.15
 
 CircularGaugeStyle {
-  property double minorTickmarkHeight: 14 / 90 * outerRadius
-  property double tickmarkHeight: 20 / 90 * outerRadius
+
 
   id: propeller_gauge_style
   minimumValueAngle: -216

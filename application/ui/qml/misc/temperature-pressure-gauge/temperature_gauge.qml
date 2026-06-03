@@ -7,75 +7,75 @@ CircularGauge {
   stepSize: 0.1
   value: 0
 
-  property double minimumValueAngle: 135
-  property double maximumValueAngle: 45
+  // property double minimumValueAngle: 135
+  // property double maximumValueAngle: 45
 
   style: CircularGaugeStyle {
     id: style
 
-    property double tickmarkHeight: 0.115 * outerRadius
-
-    minimumValueAngle: root.minimumValueAngle
-    maximumValueAngle: root.maximumValueAngle
+    minimumValueAngle: 45
+    maximumValueAngle: -45
     tickmarkStepSize: 5
     labelStepSize: 5
     minorTickmarkCount: 0
-
+    tickmarkHeight: 0.115 * outerRadius
     labelInset: 0.275 * outerRadius
     tickmarkInset: 0.02 * outerRadius
 
     tickmark: Rectangle {
-      color: styleData.value === 245 ? "#e30000" : "#ffffff"
-      width: 0.02 * outerRadius
+      property real value: 0
+      color: value === 245 ? "#e30000" : "#ffffff"
+      width: 0.02 * style.outerRadius
       height: style.tickmarkHeight
-      radius: 0.01 * outerRadius
+      radius: 0.01 * style.outerRadius
       antialiasing: true
-      visible: styleData.value === 75 ||
-          styleData.value === 100 ||
-          styleData.value === 150 ||
-          styleData.value === 200 ||
-          styleData.value === 245
+      visible: value === 75 ||
+          value === 100 ||
+          value === 150 ||
+          value === 200 ||
+          value === 245
     }
 
     tickmarkLabel: Text {
-      text: styleData.value
+      property real value: 0
+      text: value
       color: "#ffffff"
       font.family: "Century Gothic"
-      font.pixelSize: Math.max(6, 0.1 * outerRadius)
+      font.pixelSize: Math.max(6, 0.1 * style.outerRadius).toFixed(0)
       font.weight: Font.Black
       antialiasing: true
-      visible: styleData.value === 75 ||
-          styleData.value === 100 ||
-          styleData.value === 150 ||
-          styleData.value === 200 ||
-          styleData.value === 245
+      visible: value === 75 ||
+          value === 100 ||
+          value === 150 ||
+          value === 200 ||
+          value === 245
     }
 
     foreground: Item {
     }
 
     needle: GaugeNeedleStandard {
-      width: 0.075 * outerRadius
-      height: 0.95 * outerRadius
+      width: 0.075 * style.outerRadius
+      height: 0.95 * style.outerRadius
     }
 
     background: Item {
       id: background
-      width: 2 * outerRadius
-      height: 2 * outerRadius
+      width: 2 * style.outerRadius
+      height: 2 * style.outerRadius
 
       CustomCanvas {
         anchors.fill: parent
         onPaint: {
           if (context) {
             context.reset()
-            context.lineWidth = 0.075 * outerRadius
+            context.lineWidth = 0.075 * style.outerRadius
             context.beginPath()
-            context.arc(outerRadius,
-                outerRadius,
-                outerRadius - tickmarkInset - context.lineWidth / 2,
-                (valueToAngle(245) - 90) * Math.PI / 180.0,
-                (valueToAngle(100) - 90) * Math.PI / 180.0)
+            context.arc(style.outerRadius,
+                style.outerRadius,
+                style.outerRadius - style.tickmarkInset - context.lineWidth / 2,
+                (style.valueToAngle(245)) * Math.PI / 180.0,
+                (style.valueToAngle(100)) * Math.PI / 180.0)
             context.strokeStyle = "#00c300"
             context.stroke()
           }

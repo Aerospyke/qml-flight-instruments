@@ -41,7 +41,7 @@ Item {
         centerY: height / 2
         radiusX: style.outerRadius - 10
         radiusY: style.outerRadius - 10
-        startAngle: style.valueToAngle(0)
+        startAngle: style.valueToAngle(minimumValue)
         sweepAngle: style.valueToAngle(root.value) - startAngle
       }
     }
