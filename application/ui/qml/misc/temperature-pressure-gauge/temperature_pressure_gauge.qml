@@ -16,6 +16,17 @@ Item {
     color: "#181818"
     scale: 0.775
 
+    CustomTextMiscUtil {
+      x: 110 / 300 * parent.radius
+      color: "#ffffff"
+      text: "°F"
+      anchors.verticalCenter: parent.verticalCenter
+      font.pixelSize: Math.max(6, 0.05 * parent.width)
+      horizontalAlignment: Text.AlignHCenter
+      lineHeight: 0.8
+      wrapMode: Text.Wrap
+    }
+    
     TemperatureGauge {
       x: -0.525 * width
       y: 0
@@ -33,17 +44,6 @@ Item {
     }
 
     GaugeMask {
-    }
-
-    CustomTextMiscUtil {
-      x: 110 / 300 * parent.radius
-      color: "#ffffff"
-      text: "°F"
-      anchors.verticalCenter: parent.verticalCenter
-      font.pixelSize: Math.max(6, 0.05 * parent.width)
-      horizontalAlignment: Text.AlignHCenter
-      lineHeight: 0.8
-      wrapMode: Text.Wrap
     }
 
     CustomTextMiscUtil {

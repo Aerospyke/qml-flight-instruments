@@ -66,8 +66,6 @@ CircularGaugeStyle {
 
   background: Rectangle {
     id: background
-    width: 2 * outerRadius
-    height: 2 * outerRadius
     radius: outerRadius
     color: "#181818"
 
@@ -95,7 +93,6 @@ CircularGaugeStyle {
       color: "#ffffff"
       font.family: "Century Gothic"
       font.pixelSize: Math.max(6, outerRadius * 0.125)
-      font.weight: Font.Black
       antialiasing: true
       horizontalAlignment: Text.AlignHCenter
     }

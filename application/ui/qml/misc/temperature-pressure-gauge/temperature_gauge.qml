@@ -66,8 +66,6 @@ CircularGauge {
 
     background: Item {
       id: background
-      width: 2 * style.outerRadius
-      height: 2 * style.outerRadius
 
       CustomCanvas {
         anchors.fill: parent
