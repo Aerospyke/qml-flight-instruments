@@ -56,9 +56,6 @@ CircularGauge {
       }
     }
 
-    foreground: Item {
-    }
-
     needle: GaugeNeedleStandard {
       width: 0.075 * style.outerRadius
       height: 0.95 * style.outerRadius
@@ -66,6 +63,9 @@ CircularGauge {
 
     background: Item {
       id: background
+      width: 2 * style.outerRadius
+      height: 2 * style.outerRadius
+      property double radius: style.outerRadius
 
       CustomCanvas {
         anchors.fill: parent
@@ -83,6 +83,17 @@ CircularGauge {
             context.stroke()
           }
         }
+      }
+
+      CustomTextMiscUtil {
+        x: 1.4 * parent.radius
+        color: "#ffffff"
+        text: "°F"
+        anchors.verticalCenter: parent.verticalCenter
+        font.pixelSize: Math.max(6, 0.05 * parent.width)
+        horizontalAlignment: Text.AlignHCenter
+        lineHeight: 0.8
+        wrapMode: Text.Wrap
       }
     }
   }
