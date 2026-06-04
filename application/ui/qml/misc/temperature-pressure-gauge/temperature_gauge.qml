@@ -9,21 +9,22 @@ CircularGauge {
 
   style: CircularGaugeStyle {
     id: style
-    parentGauge: temperature_gauge_root
     minimumValueAngle: 45
     maximumValueAngle: -45
     tickmarkStepSize: 5
     labelStepSize: 5
     minorTickmarkCount: 0
     tickmarkHeight: 0.115 * outerRadius
-    labelInset: 0.2 * outerRadius
+    labelInset: 0.25 * outerRadius
     tickmarkInset: 0.02 * outerRadius
+
+    tickmarkLabelPixelSize: Math.max(6, Math.round(0.1 * outerRadius))
 
     tickmark: Rectangle {
       property real value: 0
 
       color: value === 245 ? "#e30000" : "#ffffff"
-      width: 0.04 * style.outerRadius
+      width: 0.03 * style.outerRadius
       height: style.tickmarkHeight
       radius: 0.01 * style.outerRadius
       antialiasing: true
@@ -34,7 +35,6 @@ CircularGauge {
           value === 245
     }
 
-    tickmarkLabelPixelSize: Math.max(6, Math.round(0.1 * outerRadius))
 
     tickmarkLabel: Component {
       Text {

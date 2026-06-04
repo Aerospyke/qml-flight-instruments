@@ -9,7 +9,7 @@ CircularGaugeStyle {
   tickmarkStepSize: 500
   labelStepSize: 500
   minorTickmarkCount: 5
-  labelInset: 20 / 90 * outerRadius
+  labelInset: 25 / 90 * outerRadius
   tickmarkInset: 6 / 90 * outerRadius
   minorTickmarkInset: 6 / 90 * outerRadius
 

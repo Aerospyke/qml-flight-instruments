@@ -34,7 +34,7 @@ Item {
       strokeColor: style.progressColor
       strokeWidth: style.progressThickness
       fillColor: "transparent"
-      capStyle: ShapePath.RoundCap
+      capStyle: ShapePath.FlatCap
 
       PathAngleArc {
         centerX: width / 2
@@ -143,7 +143,7 @@ Item {
 
         x: labelContainer.xPos - width / 2
         y: labelContainer.yPos - height / 2
-        rotation: labelContainer.angleDeg + 90
+        rotation: 0
       }
     }
   }

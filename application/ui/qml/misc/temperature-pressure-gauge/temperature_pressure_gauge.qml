@@ -24,13 +24,13 @@ Item {
       value: engineTemperature
     }
 
-    // PressureGauge {
-    //   x: 0.525 * width
-    //   y: 0
-    //   width: parent.width
-    //   height: parent.height
-    //   value: enginePressure
-    // }
+    PressureGauge {
+      x: 0.525 * width
+      y: 0
+      width: parent.width
+      height: parent.height
+      value: enginePressure
+    }
 
     GaugeMask {
     }
