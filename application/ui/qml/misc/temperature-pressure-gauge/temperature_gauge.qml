@@ -10,34 +10,20 @@ CircularGauge {
   style: CircularGaugeStyle {
     id: style
     parentGauge: temperature_gauge_root
-    // Component.onCompleted: {
-    //   // print("Parent Gauge: ", parentGauge)
-    //   // print("Direct Temp Root: ", temperature_gauge_root)
-    //   // print("OuterRadius: ", style.outerRadius)
-    //   // print("OuterRadius 2 : ", outerRadius)
-    // }
     minimumValueAngle: 45
     maximumValueAngle: -45
     tickmarkStepSize: 5
     labelStepSize: 5
     minorTickmarkCount: 0
     tickmarkHeight: 0.115 * outerRadius
-    labelInset: 0.275 * outerRadius
+    labelInset: 0.2 * outerRadius
     tickmarkInset: 0.02 * outerRadius
 
     tickmark: Rectangle {
       property real value: 0
 
-      // property real angle: style.valueToAngle(value)
-      // property real tick_x_position: (style.outerRadius - 10) * Math.cos(Math.PI / 180 * angle)
-      // property real tick_y_position: (style.outerRadius - 10) * Math.sin(Math.PI / 180 * angle)
-      //
-      // rotation: parent.angle + 90
-      // x: tick_x_position - width * 0.5
-      // y: tick_y_position - height * 0.5
-
       color: value === 245 ? "#e30000" : "#ffffff"
-      width: 0.02 * style.outerRadius
+      width: 0.04 * style.outerRadius
       height: style.tickmarkHeight
       radius: 0.01 * style.outerRadius
       antialiasing: true
@@ -89,7 +75,7 @@ CircularGauge {
             context.reset()
             context.lineWidth = 0.075 * style.outerRadius
             context.beginPath()
-            context.arc(style.outerRadius,
+            context.arc(style.outerRadius - 0.02 * style.outerRadius,
                 style.outerRadius,
                 style.outerRadius - context.lineWidth / 4,
                 (style.valueToAngle(245)) * Math.PI / 180.0,
