@@ -16,7 +16,7 @@ QtObject {
 
   // Progress
   property color progressColor: "#4CAF50"
-  property real progressThickness: 14
+  property real progressArcThickness: 14
 
   // Tick Marks
   property real tickmarkStepSize: 10

@@ -1,9 +1,8 @@
 import QtQuick 2.15
 
 CircularGaugeStyle {
-
-
   id: propeller_gauge_style
+  progressArcThickness: 0 // Disable Progress Arc
   minimumValueAngle: -216
   maximumValueAngle: 36
   tickmarkStepSize: 500

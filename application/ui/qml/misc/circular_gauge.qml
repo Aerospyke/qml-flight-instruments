@@ -28,11 +28,11 @@ Item {
   Shape {
     anchors.fill: parent
     antialiasing: true
-    visible: style.progressThickness > 0
+    visible: style.progressArcThickness > 0
 
     ShapePath {
       strokeColor: style.progressColor
-      strokeWidth: style.progressThickness
+      strokeWidth: style.progressArcThickness
       fillColor: "transparent"
       capStyle: ShapePath.FlatCap
 
