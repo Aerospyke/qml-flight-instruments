@@ -8,7 +8,7 @@ s [QFlightinstruments](https://github.com/marek-cel/QFlightinstruments). This up
   Extras CircularGauge with a custom circular gauge.
 - Replaces the Qt project structure with a pure CMake build system
 
-SVG files are from Marek's repository. See `Resources/Images/LICENSE` for copyright.
+SVG files are from Marek's repository. See `application/ui/images/LICENSE` for copyright.
 
 ## Features
 
