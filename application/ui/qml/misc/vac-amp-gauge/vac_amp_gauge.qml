@@ -37,20 +37,6 @@ Item {
     }
 
     CustomTextMiscUtil {
-      x: 110 / 300 * parent.radius
-      width: 70 / 300 * parent.radius
-      height: 90 / 300 * parent.radius
-      color: "#ffffff"
-      text: "IN. Hg."
-      anchors.verticalCenter: parent.verticalCenter
-      font.pixelSize: Math.max(6, 0.05 * parent.width)
-      horizontalAlignment: Text.AlignLeft
-      verticalAlignment: Text.AlignVCenter
-      lineHeight: 0.8
-      wrapMode: Text.Wrap
-    }
-
-    CustomTextMiscUtil {
       x: 30 / 300 * parent.radius
       width: 40 / 300 * parent.radius
       height: 195 / 300 * parent.radius

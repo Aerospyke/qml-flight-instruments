@@ -44,12 +44,12 @@ Window {
       rpm: pfd.rpm
     }
 
-    // VacAmpGauge {
-    //   radius: window.radius
-    //   vac: pfd.vac
-    //   amp: pfd.amp
-    // }
-    //
+    VacAmpGauge {
+      radius: window.radius
+      vac: pfd.vac
+      amp: pfd.amp
+    }
+
     TemperaturePressureGauge {
       radius: window.radius
       engineTemperature: pfd.engineTemperature
