@@ -18,8 +18,6 @@ CircularGauge {
     labelInset: 0.275 * style.outerRadius
     tickmarkInset: 0.02 * style.outerRadius
 
-    tickmarkLabelPixelSize: Math.max(6, Math.round(0.1 * style.outerRadius))
-
     tickmark: Rectangle {
       color: "#ffffff"
       width: 0.02 * style.outerRadius
@@ -41,7 +39,6 @@ CircularGauge {
       text: value > 0 ? "+" + value : value
       color: "#ffffff"
       font.family: "Century Gothic"
-      font.pixelSize: style.tickmarkLabelPixelSize
       font.weight: Font.Black
       antialiasing: true
     }

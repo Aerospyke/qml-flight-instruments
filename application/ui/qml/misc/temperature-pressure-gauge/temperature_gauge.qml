@@ -18,8 +18,6 @@ CircularGauge {
     labelInset: 0.25 * outerRadius
     tickmarkInset: 0.02 * outerRadius
 
-    tickmarkLabelPixelSize: Math.max(6, Math.round(0.1 * outerRadius))
-
     tickmark: Rectangle {
       property real value: 0
 

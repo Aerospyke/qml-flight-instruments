@@ -124,8 +124,8 @@ Item {
       property real labelValue: root.minimumValue + index * style.labelStepSize
       property real angleDeg: style.valueToAngle(labelValue)
       property real labelRadius: style.outerRadius - style.labelInset
-      property real xPos: root.width / 2 + labelRadius * Math.cos(angleDeg * Math.PI / 180)
-      property real yPos: root.height / 2 + labelRadius * Math.sin(angleDeg * Math.PI / 180)
+      property real xPos: root.width / 2 + 1.03 * labelRadius * Math.cos(angleDeg * Math.PI / 180)
+      property real yPos: root.height / 2 + 1.03 * labelRadius * Math.sin(angleDeg * Math.PI / 180)
 
       Loader {
         id: tickLabelLoader
@@ -136,9 +136,10 @@ Item {
             return
           if (item.hasOwnProperty("value"))
             item.value = labelContainer.labelValue
-          item.font.pixelSize = Qt.binding(function () {
-            return style.tickmarkLabelPixelSize
-          })
+          if (item.font)
+            item.font.pixelSize = Qt.binding(function () {
+              return style.tickmarkLabelPixelSize
+            })
         }
 
         x: labelContainer.xPos - width / 2

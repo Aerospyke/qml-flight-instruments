@@ -4,6 +4,8 @@ CircularGaugeStyle {
   id: propeller_gauge_style
   minimumValueAngle: -216
   maximumValueAngle: 36
+  tickmarkLabelPixelSize: Math.max(6, Math.round(0.15 * outerRadius))
+
   tickmarkStepSize: 500
   labelStepSize: 500
   minorTickmarkCount: 5
@@ -38,7 +40,6 @@ CircularGaugeStyle {
       property real value: 0
 
       font.family: "Century Gothic"
-      font.pixelSize: Math.max(6, outerRadius * 0.15)
       text: (value / 100).toFixed(0)
       antialiasing: true
       color: "#ffffff"

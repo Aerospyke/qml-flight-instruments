@@ -41,7 +41,7 @@ QtObject {
   property real labelStepSize: 10
   property Component tickmarkLabel: null
   property color labelColor: "#CCCCCC"
-  property int tickmarkLabelPixelSize: Math.max(6, Math.round(0.15 * outerRadius))
+  property int tickmarkLabelPixelSize: Math.max(6, Math.round(0.1 * outerRadius))
   property real labelInset: 38
 
   // Needle

@@ -18,8 +18,6 @@ CircularGauge {
     labelInset: 0.275 * style.outerRadius
     tickmarkInset: 0.02 * style.outerRadius
 
-    tickmarkLabelPixelSize: Math.max(6, Math.round(0.1 * style.outerRadius))
-
     tickmark: Rectangle {
       color: "#ffffff"
       width: 0.02 * style.outerRadius
@@ -35,8 +33,6 @@ CircularGauge {
         text: value
         color: "#ffffff"
         font.family: "Century Gothic"
-        font.pixelSize: 20
-        // font.pixelSize: Math.max(6, 0.1 * style.outerRadius)
         font.weight: Font.Black
         antialiasing: true
       }
@@ -51,6 +47,7 @@ CircularGauge {
       id: background
       width: 2 * style.outerRadius
       height: 2 * style.outerRadius
+      property double radius: style.outerRadius
 
       CustomCanvas {
         anchors.fill: parent
@@ -66,22 +63,11 @@ CircularGauge {
           }
         }
       }
-
       CustomTextMiscUtil {
         color: "#ffffff"
-        x: 0.1 * style.outerRadius
-        y: 1.6 * style.outerRadius
-        text: "GAL"
-        font.pixelSize: Math.max(6, 0.05 * parent.width)
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-      }
-
-      CustomTextMiscUtil {
-        color: "#ffffff"
-        x: 0.145 * style.outerRadius
-        y: 1.725 * style.outerRadius
-        text: "HR"
+        x: 0.1 * radius
+        y: 1.6 * radius
+        text: "GAL\nHR"
         font.pixelSize: Math.max(6, 0.05 * parent.width)
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
