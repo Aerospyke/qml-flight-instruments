@@ -164,7 +164,7 @@ Item {
 
   Text {
     x: 25
-    y: 118
+    y: 121
     width: 25
     height: 14
     text: airspeed.toFixed(0)

@@ -134,7 +134,7 @@ Item {
 
   Text {
     x: 241
-    y: 119
+    y: 121
     width: 31
     height: 11
     text: altitude.toFixed(0)

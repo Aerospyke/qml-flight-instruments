@@ -46,8 +46,8 @@ int main(int argc, char* argv[]) {
   animation->setPfd(pfd);
 
   engine.rootContext()->setContextProperty("pfd", pfd);
-  // engine.load(url1);
-  // engine.load(url2);
+  engine.load(url1);
+  engine.load(url2);
   engine.load(url3);
 
   animation->init();

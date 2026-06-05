@@ -71,7 +71,7 @@ Item {
 
   Text {
     x: 136
-    y: 219
+    y: 221
     text: heading.toFixed(0)
     width: 28
     height: 14
