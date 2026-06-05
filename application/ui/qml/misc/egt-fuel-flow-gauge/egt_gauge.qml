@@ -9,8 +9,7 @@ CircularGauge {
 
   style: CircularGaugeStyle {
     id: style
-    // TODO: Make progress Arc Thickness 0 by default
-    progressArcThickness: 0 // Disable Progress Arc
+    // progressArcThickness: 14
     minimumValueAngle: 35
     maximumValueAngle: -35
     tickmarkStepSize: 75

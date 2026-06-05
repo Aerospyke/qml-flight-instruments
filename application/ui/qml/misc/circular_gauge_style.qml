@@ -14,9 +14,9 @@ QtObject {
   property color backgroundColor: "#333333"
   property real backgroundThickness: 14
 
-  // Progress
+  // Progress Arc (Set Thickness > 0 for it to appear)1
   property color progressColor: "#4CAF50"
-  property real progressArcThickness: 14
+  property real progressArcThickness: 0
 
   // Tick Marks
   property real tickmarkStepSize: 10
@@ -56,7 +56,7 @@ QtObject {
 
   // Arc
   property bool positiveDirectionIsClockwise: false
-  
+
   // ==================== Helper Function ====================
   function valueToAngle(val) {
     if (!parentGauge || parentGauge.maximumValue === parentGauge.minimumValue)
