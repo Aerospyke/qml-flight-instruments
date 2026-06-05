@@ -9,7 +9,7 @@ Window {
   minimumWidth: 800
   minimumHeight: 600
   visibility: Window.Maximized
-  title: "EFIS Example"
+  title: "Electronic Flight Instrument System (EFIS) Example"
   color: "#ffffff"
 
   Item {

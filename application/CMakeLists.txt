@@ -1,8 +1,3 @@
-set(APPLICATION_NAME "QmlFlightInstrumentsDemo")
-set(APPLICATION_URI drone_flight_planner)
-set(APPLICATION_BUNDLE_GUI_ID de.conorco.flight_instruments_demo)
-set(APPLICATION_ICON_PATH ${CMAKE_CURRENT_SOURCE_DIR}/ui/icons/conor_co.icns)
-
 set(QT_PACKAGES
         Gui
         Quick
