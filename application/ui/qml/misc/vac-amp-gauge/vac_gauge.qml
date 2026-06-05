@@ -41,7 +41,7 @@ CircularGauge {
       color: "#ffffff"
       font.family: "Century Gothic"
       font.pixelSize: Math.max(6, 0.1 * style.outerRadius)
-      // font.weight: Font.Black
+      font.weight: Font.Black
       antialiasing: true
     }
 

@@ -1,47 +1,51 @@
 import QtQuick 2.15
 
 CircularGauge {
-  id: root
+  id: amp_gauge_root
   minimumValue: -60
   maximumValue: 60
   stepSize: 0.01
   value: 0
 
-  property double minimumValueAngle: -135
-  property double maximumValueAngle: -45
+  // property double minimumValueAngle: -135
+  // property double maximumValueAngle: -45
 
   style: CircularGaugeStyle {
     id: style
-    minimumValueAngle: root.minimumValueAngle
-    maximumValueAngle: root.maximumValueAngle
+    progressArcThickness: 0 // Disable Progress Arc
+    minimumValueAngle: 135
+    maximumValueAngle: 225
     tickmarkStepSize: 30
     labelStepSize: 30
-    minorTickmarkCount: 1
+    minorTickmarkCount: 2
 
-    labelInset: 0.275 * outerRadius
-    tickmarkInset: 0.02 * outerRadius
+    labelInset: 0.275 * style.outerRadius
+    tickmarkInset: 0.02 * style.outerRadius
+
+    tickmarkLabelPixelSize: Math.max(6, Math.round(0.1 * style.outerRadius))
 
     tickmark: Rectangle {
       color: "#ffffff"
-      width: 0.02 * outerRadius
-      height: 0.115 * outerRadius
-      radius: 0.01 * outerRadius
+      width: 0.02 * style.outerRadius
+      height: 0.115 * style.outerRadius
+      radius: 0.01 * style.outerRadius
       antialiasing: true
     }
 
     minorTickmark: Rectangle {
       color: "#ffffff"
-      width: 0.02 * outerRadius
-      height: 0.075 * outerRadius
-      radius: 0.01 * outerRadius
+      width: 0.02 * style.outerRadius
+      height: 0.075 * style.outerRadius
+      radius: 0.01 * style.outerRadius
       antialiasing: true
     }
 
     tickmarkLabel: Text {
-      text: styleData.value > 0 ? "+" + styleData.value : styleData.value
+      property real value: 0
+      text: value > 0 ? "+" + value : value
       color: "#ffffff"
       font.family: "Century Gothic"
-      font.pixelSize: Math.max(6, 0.1 * outerRadius)
+      font.pixelSize: style.tickmarkLabelPixelSize
       font.weight: Font.Black
       antialiasing: true
     }
@@ -50,8 +54,8 @@ CircularGauge {
     }
 
     needle: GaugeNeedleStandard {
-      width: 0.075 * outerRadius
-      height: 0.95 * outerRadius
+      width: 0.075 * style.outerRadius
+      height: 0.95 * style.outerRadius
     }
 
     background: Item {
