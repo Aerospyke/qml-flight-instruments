@@ -26,13 +26,13 @@ Item {
     deltaFaceY = (face.height / 240) * pixelPerDegree * tempPitch * Math.cos(Math.PI * roll / 180.0)
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/ai_back.svg"
     rotation: -roll
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     id: face
     anchors.fill: parent
     source: "qrc:/images/ai_face.svg"
@@ -56,13 +56,13 @@ Item {
     ]
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/ai_ring.svg"
     rotation: -roll
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/ai_case.svg"
   }

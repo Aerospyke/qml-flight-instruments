@@ -52,7 +52,7 @@ Item {
     fdDeltaY = temp * pixelPerDegree * Math.cos(roll * Math.PI / 180)
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: back
     x: 45
     y: -85
@@ -79,7 +79,7 @@ Item {
     ]
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: ladder
     x: 110
     y: -175
@@ -106,7 +106,7 @@ Item {
     ]
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: rollMask
     x: 45
     y: 20
@@ -126,7 +126,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: slip
     x: 145.5
     y: 68
@@ -153,7 +153,7 @@ Item {
     ]
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: doth
     x: 145
     y: 188
@@ -167,7 +167,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: dotv
     x: 213
     y: 120
@@ -181,7 +181,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: scaleH
     x: 0
     y: 0
@@ -192,7 +192,7 @@ Item {
     visible: dotHVisible
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: scaleV
     x: 0
     y: 0
@@ -203,7 +203,7 @@ Item {
     visible: dotVVisible
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: fd
     x: 107
     y: 124.5
@@ -230,7 +230,7 @@ Item {
     ]
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: fpm
     x: 135
     y: 113
@@ -244,7 +244,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: fpmx
     x: 135
     y: 113
@@ -259,7 +259,7 @@ Item {
     visible: Math.abs(sideSlipAngle) >= 15 || Math.abs(angleOfAttack) >= 20
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: mask
     x: 0
     y: 0
@@ -269,7 +269,7 @@ Item {
     sourceSize.width: 1200
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: turn
     x: 142.5
     y: 206
@@ -282,7 +282,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: stall
     x: 122
     y: 91

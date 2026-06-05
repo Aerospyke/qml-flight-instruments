@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
 
   QQmlApplicationEngine engine;
 
-  const QUrl BasicSixRoot("qrc:/qml/BasicSix.qml");
+  const QUrl BasicSixRoot("qrc:/qml/BasicSixRootDisplay.qml");
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &Application,
       [BasicSixRoot](const QObject* object, const QUrl& object_url) {
@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
       },
       Qt::QueuedConnection);
 
-  const QUrl EfisRoot("qrc:/qml/EFIS.qml");
+  const QUrl EfisRoot("qrc:/qml/EfisRootDisplay.qml");
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &Application,
       [EfisRoot](const QObject* obj, const QUrl& object_url) {
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
       },
       Qt::QueuedConnection);
 
-  const QUrl GaugesRoot("qrc:/qml/Misc.qml");
+  const QUrl GaugesRoot("qrc:/qml/GaugesRootDisplay");
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &Application,
       [GaugesRoot](const QObject* object, const QUrl& object_url) {

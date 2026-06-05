@@ -7,17 +7,17 @@ Item {
   required property double radius
   property double climbRate: 0
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/vsi_face.svg"
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/vsi_case.svg"
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/vsi_hand.svg"
     rotation: 8.6 * climbRate

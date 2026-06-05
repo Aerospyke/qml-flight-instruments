@@ -8,12 +8,12 @@ Item {
   property double turnRate: 0
   property double slipSkid: 0
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/tc_back.svg"
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     id: ball
     anchors.fill: parent
     source: "qrc:/images/tc_ball.svg"
@@ -29,23 +29,23 @@ Item {
     }
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/tc_face_1.svg"
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/tc_face_2.svg"
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/tc_mark.svg"
     rotation: (turnRate / 3.0) * 20.0
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/tc_case.svg"
   }

@@ -37,7 +37,7 @@ Item {
     canvas.requestPaint()
   }
 
-  CustomImageEadi {
+  EadiImage {
     x: 275
     y: 50
     width: 19

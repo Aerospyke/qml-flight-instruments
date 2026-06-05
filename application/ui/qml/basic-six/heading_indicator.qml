@@ -7,13 +7,13 @@ Item {
   required property double radius
   property double heading: 0
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/hi_face.svg"
     rotation: -heading
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/hi_case.svg"
   }

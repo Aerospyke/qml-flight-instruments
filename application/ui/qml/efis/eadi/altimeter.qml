@@ -109,7 +109,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: alt_bug
     x: 225
     y: 110
@@ -122,7 +122,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: alt_frame
     x: 225
     y: 110

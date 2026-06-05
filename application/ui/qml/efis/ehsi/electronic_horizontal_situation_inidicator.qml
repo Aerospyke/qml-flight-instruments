@@ -20,14 +20,14 @@ Item {
     source: "qrc:/fonts/Courier Std Bold.otf"
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: back
     source: "qrc:/images/ehsi_back.svg"
     width: 300
     height: 300
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: devScale
     rotation: -heading + course
     source: "qrc:/images/ehsi_dev_scale.svg"
@@ -36,7 +36,7 @@ Item {
     visible: cdiMode === 1 || cdiMode === 2
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: devBar
     rotation: -heading + course
     transform: Translate {
@@ -49,7 +49,7 @@ Item {
     visible: cdiMode === 1 || cdiMode === 2
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: brgArrow
     rotation: -heading + bearing
     source: "qrc:/images/ehsi_brg_arrow.svg"
@@ -57,7 +57,7 @@ Item {
     height: 300
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: crsArrow
     rotation: -heading + course
     source: "qrc:/images/ehsi_crs_arrow.svg"
@@ -65,7 +65,7 @@ Item {
     height: 300
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: cdiTo
     rotation: -heading + course
     transform: Translate {
@@ -78,7 +78,7 @@ Item {
     visible: cdiMode === 1
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: cdiFrom
     rotation: -heading + course
     transform: Translate {
@@ -91,14 +91,14 @@ Item {
     visible: cdiMode === 2
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: mask
     source: "qrc:/images/ehsi_mask.svg"
     width: 300
     height: 300
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: hdgScale
     source: "qrc:/images/ehsi_hdg_scale.svg"
     rotation: -heading
@@ -106,7 +106,7 @@ Item {
     height: 300
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: hdgBug
     rotation: -heading + headingBug
     source: "qrc:/images/ehsi_hdg_bug.svg"
@@ -114,14 +114,14 @@ Item {
     height: 300
   }
 
-  CustomImageEhsi {
+  EhsiImage {
     id: mark
     source: "qrc:/images/ehsi_mark.svg"
     width: 300
     height: 300
   }
 
-  LabelsEhsi {
+  EhsiLabels {
     id: labels
     headingBug: root.headingBug
     course: root.course

@@ -30,17 +30,17 @@ Item {
       angle = 264.0 + 1.2 * (angle - 160.0)
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/asi_face.svg"
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/asi_case.svg"
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/asi_hand.svg"
     rotation: angle

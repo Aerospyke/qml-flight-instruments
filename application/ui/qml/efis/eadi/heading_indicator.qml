@@ -8,7 +8,7 @@ Item {
   property double heading: 0
   property double bugValue: 0
 
-  CustomImageEadi {
+  EadiImage {
     id: back
     x: 0
     y: 210
@@ -18,7 +18,7 @@ Item {
     sourceSize.width: 1500
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: face
     x: 38
     y: 233
@@ -39,7 +39,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: bug
     x: 38
     y: 233
@@ -59,7 +59,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: marks
     x: 134
     y: 217

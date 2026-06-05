@@ -139,7 +139,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: bug
     x: 0
     y: 110
@@ -152,7 +152,7 @@ Item {
     }
   }
 
-  CustomImageEadi {
+  EadiImage {
     id: frame
     x: 0
     y: 110

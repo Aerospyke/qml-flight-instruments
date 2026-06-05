@@ -8,7 +8,7 @@ Item {
   property double altitude: 0
   property double pressure: 28
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/alt_face_1.svg"
     rotation: {
@@ -23,30 +23,30 @@ Item {
     }
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/alt_face_2.svg"
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/alt_face_3.svg"
     rotation: 0.0036 * altitude
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/alt_hand_1.svg"
     rotation: 0.036 * altitude
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/alt_hand_2.svg"
     rotation: 0.36 * (altitude % 1000)
   }
 
-  CustomImageBasicSix {
+  BasicSixImage {
     anchors.fill: parent
     source: "qrc:/images/alt_case.svg"
   }
