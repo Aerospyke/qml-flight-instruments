@@ -46,7 +46,7 @@ CircularGaugeStyle {
     width: 2 * style.outerRadius
     height: 2 * style.outerRadius
 
-    CustomCanvas {
+    GaugeCanvas {
       anchors.fill: parent
       onPaint: {
         if (context) {

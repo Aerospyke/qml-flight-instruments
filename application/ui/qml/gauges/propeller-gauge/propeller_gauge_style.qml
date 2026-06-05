@@ -70,7 +70,7 @@ CircularGaugeStyle {
     color: "#181818"
 
     // Green Range On Dial
-    CustomCanvas {
+    GaugeCanvas {
       anchors.fill: parent
       onPaint: {
         if (context) {

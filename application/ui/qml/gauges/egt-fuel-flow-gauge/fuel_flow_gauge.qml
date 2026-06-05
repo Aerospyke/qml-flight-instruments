@@ -49,7 +49,7 @@ CircularGauge {
       height: 2 * style.outerRadius
       property double radius: style.outerRadius
 
-      CustomCanvas {
+      GaugeCanvas {
         anchors.fill: parent
         onPaint: {
           if (context) {
@@ -63,7 +63,7 @@ CircularGauge {
           }
         }
       }
-      CustomTextMiscUtil {
+      GaugeText {
         color: "#ffffff"
         x: 0.1 * radius
         y: 1.6 * radius

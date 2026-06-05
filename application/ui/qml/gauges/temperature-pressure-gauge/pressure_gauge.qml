@@ -60,7 +60,7 @@ CircularGauge {
     background: Item {
       id: background
 
-      CustomCanvas {
+      GaugeCanvas {
         anchors.fill: parent
         onPaint: {
           if (context) {

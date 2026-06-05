@@ -38,7 +38,7 @@ CircularGauge {
       height: 2 * style.outerRadius
       property double radius: style.outerRadius
 
-      CustomTextMiscUtil {
+      GaugeText {
         color: "#ffffff"
         x: 1.6 * parent.radius
         y: 1.6 * parent.radius

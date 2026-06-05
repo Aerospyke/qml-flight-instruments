@@ -36,7 +36,7 @@ Item {
     GaugeMask {
     }
 
-    CustomTextMiscUtil {
+    GaugeText {
       x: 30 / 300 * parent.radius
       width: 40 / 300 * parent.radius
       height: 195 / 300 * parent.radius
@@ -50,7 +50,7 @@ Item {
       wrapMode: Text.Wrap
     }
 
-    CustomTextMiscUtil {
+    GaugeText {
       x: 530 / 300 * parent.radius
       width: 20 / 300 * parent.radius
       height: 230 / 300 * parent.radius
@@ -64,7 +64,7 @@ Item {
       wrapMode: Text.Wrap
     }
 
-    CustomTextMiscUtil {
+    GaugeText {
       x: 560 / 300 * parent.radius
       width: 30 / 300 * parent.radius
       height: 230 / 300 * parent.radius
@@ -79,7 +79,7 @@ Item {
     }
   }
 
-  CustomImageUtil {
+  GaugeImage {
     anchors.fill: parent
     source: "qrc:/images/case.svg"
   }

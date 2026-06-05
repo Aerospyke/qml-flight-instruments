@@ -22,7 +22,7 @@ Item {
     }
   }
 
-  CustomImageUtil {
+  GaugeImage {
     anchors.fill: parent
     source: "qrc:/images/case.svg"
   }
