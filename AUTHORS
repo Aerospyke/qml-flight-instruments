@@ -11,3 +11,7 @@ PFD ILD identification and distance indicators.
 Berk Bavas
 berkbavas@gmail.com
 Porting Marek M. Cel's work https://github.com/marek-cel/QFlightinstruments to QML.
+
+Conor Haines
+dudeincognito@protonmail.com
+Ported to Qt6 and CMake
