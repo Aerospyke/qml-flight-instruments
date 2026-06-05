@@ -54,6 +54,9 @@ QtObject {
   // Foreground
   property Component foreground: null
 
+  // Arc
+  property bool positiveDirectionIsClockwise: false
+  
   // ==================== Helper Function ====================
   function valueToAngle(val) {
     if (!parentGauge || parentGauge.maximumValue === parentGauge.minimumValue)

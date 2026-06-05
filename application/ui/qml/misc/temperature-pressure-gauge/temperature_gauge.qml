@@ -44,7 +44,6 @@ CircularGauge {
         text: value
         color: "#ffffff"
         font.family: "Century Gothic"
-        font.weight: Font.Black
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         antialiasing: true

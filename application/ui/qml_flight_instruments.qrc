@@ -30,6 +30,7 @@
     <file alias="CircularGauge.qml">qml/misc/circular_gauge.qml</file>
     <file alias="CircularGaugeStyle.qml">qml/misc/circular_gauge_style.qml</file>
     <file alias="BaseTankGauge.qml">qml/misc/tank-gauge/base_tank_gauge.qml</file>
+    <file alias="BaseTankGaugeStyle.qml">qml/misc/tank-gauge/base_tank_gauge_style.qml</file>
     <file alias="LeftTankGauge.qml">qml/misc/tank-gauge/left_tank_gauge.qml</file>
     <file alias="RightTankGauge.qml">qml/misc/tank-gauge/right_tank_gauge.qml</file>
     <file alias="TankGauge.qml">qml/misc/tank-gauge/tank_gauge.qml</file>

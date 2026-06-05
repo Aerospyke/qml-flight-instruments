@@ -27,11 +27,11 @@ Window {
       margins: 16
     }
 
-    // TankGauge {
-    //   radius: window.radius
-    //   leftTankFuel: pfd.leftTankFuel
-    //   rightTankFuel: pfd.rightTankFuel
-    // }
+    TankGauge {
+      radius: window.radius
+      leftTankFuel: pfd.leftTankFuel
+      rightTankFuel: pfd.rightTankFuel
+    }
     //
     // EgtFuelFlowGauge {
     //   radius: window.radius

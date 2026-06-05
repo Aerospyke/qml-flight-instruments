@@ -40,8 +40,8 @@ Item {
     }
 
     CustomTextMiscUtil {
-      y: 450 / 300 * parent.radius
-      height: 20 / 300 * parent.radius
+      y: 1.6 * parent.radius
+      height: 0.07 * parent.radius
       text: "GALLONS"
       anchors.left: qtyText.left
       anchors.right: qtyText.right
