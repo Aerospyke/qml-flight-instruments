@@ -36,41 +36,41 @@ Window {
           anchors.centerIn: parent
           scaleRatio: container.scaleRatio
 
-          adi.angleOfAttack: pfd.angleOfAttack
-          adi.sideSlipAngle: pfd.angleOfSideSlip
-          adi.roll: pfd.roll
-          adi.pitch: pfd.pitch
-          adi.slipSkid: pfd.slipSkid
-          adi.turnRate: pfd.turnRate
-          adi.dotH: pfd.ilsLOC
-          adi.dotV: pfd.ilsGS
-          adi.fdPitch: pfd.fdPitch
-          adi.fdRoll: pfd.fdRoll
-          adi.dotHVisible: pfd.ilsLOCVisible
-          adi.dotVVisible: pfd.ilsGSVisible
-          adi.fdVisible: pfd.fdVisible
-          adi.stallVisible: pfd.stall
+          adi.angleOfAttack: flight_telemetry.angleOfAttack
+          adi.sideSlipAngle: flight_telemetry.angleOfSideSlip
+          adi.roll: flight_telemetry.roll
+          adi.pitch: flight_telemetry.pitch
+          adi.slipSkid: flight_telemetry.slipSkid
+          adi.turnRate: flight_telemetry.turnRate
+          adi.dotH: flight_telemetry.ilsLOC
+          adi.dotV: flight_telemetry.ilsGS
+          adi.fdPitch: flight_telemetry.fdPitch
+          adi.fdRoll: flight_telemetry.fdRoll
+          adi.dotHVisible: flight_telemetry.ilsLOCVisible
+          adi.dotVVisible: flight_telemetry.ilsGSVisible
+          adi.fdVisible: flight_telemetry.fdVisible
+          adi.stallVisible: flight_telemetry.stall
 
-          asi.airspeed: pfd.airspeed
-          asi.bugValue: pfd.airspeedBug
+          asi.airspeed: flight_telemetry.airspeed
+          asi.bugValue: flight_telemetry.airspeedBug
 
-          alt.altitude: pfd.altitude
-          alt.bugValue: pfd.altitudeBug
+          alt.altitude: flight_telemetry.altitude
+          alt.bugValue: flight_telemetry.altitudeBug
 
-          hsi.heading: pfd.heading
-          hsi.bugValue: pfd.headingBug
+          hsi.heading: flight_telemetry.heading
+          hsi.bugValue: flight_telemetry.headingBug
 
-          vsi.climbRate: pfd.climbRate
+          vsi.climbRate: flight_telemetry.climbRate
 
-          labels.airspeedBug: pfd.airspeedBug
-          labels.machNumber: pfd.machNumber
-          labels.altitudeBug: pfd.altitudeBug
-          labels.pressure: pfd.pressure
-          labels.pressureMode: pfd.pressureMode
-          labels.flightMode: pfd.flightMode
-          labels.speedMode: pfd.speedMode
-          labels.lnav: pfd.lateralNavigationMode
-          labels.vnav: pfd.verticalNavigationMode
+          labels.airspeedBug: flight_telemetry.airspeedBug
+          labels.machNumber: flight_telemetry.machNumber
+          labels.altitudeBug: flight_telemetry.altitudeBug
+          labels.pressure: flight_telemetry.pressure
+          labels.pressureMode: flight_telemetry.pressureMode
+          labels.flightMode: flight_telemetry.flightMode
+          labels.speedMode: flight_telemetry.speedMode
+          labels.lnav: flight_telemetry.lateralNavigationMode
+          labels.vnav: flight_telemetry.verticalNavigationMode
         }
       }
 
@@ -83,13 +83,13 @@ Window {
         ElectronicHorizontalSituationIndicator {
           anchors.centerIn: parent
 
-          heading: pfd.heading
-          course: pfd.course
-          bearing: pfd.bearing
-          deviation: pfd.vorDeviation
-          headingBug: pfd.headingBug
-          distance: pfd.dmeDistance
-          cdiMode: pfd.courseDeviationIndicatorMode
+          heading: flight_telemetry.heading
+          course: flight_telemetry.course
+          bearing: flight_telemetry.bearing
+          deviation: flight_telemetry.vorDeviation
+          headingBug: flight_telemetry.headingBug
+          distance: flight_telemetry.dmeDistance
+          cdiMode: flight_telemetry.courseDeviationIndicatorMode
         }
       }
     }

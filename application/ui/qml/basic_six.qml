@@ -28,35 +28,35 @@ Window {
 
     AirspeedIndicatorBasicSix {
       radius: window.radius
-      airspeed: pfd.airspeed
+      airspeed: flight_telemetry.airspeed
     }
 
     AttitudeIndicatorBasicSix {
       radius: window.radius
-      roll: pfd.roll
-      pitch: pfd.pitch
+      roll: flight_telemetry.roll
+      pitch: flight_telemetry.pitch
     }
 
     AltimeterBasicSix {
       radius: window.radius
-      altitude: pfd.altitude
-      pressure: pfd.pressure
+      altitude: flight_telemetry.altitude
+      pressure: flight_telemetry.pressure
     }
 
     TurnCoordinatorBasicSix {
       radius: window.radius
-      turnRate: pfd.turnRate
-      slipSkid: pfd.slipSkid
+      turnRate: flight_telemetry.turnRate
+      slipSkid: flight_telemetry.slipSkid
     }
 
     HeadingIndicatorBasicSix {
       radius: window.radius
-      heading: pfd.heading
+      heading: flight_telemetry.heading
     }
 
     VerticalSpeedIndicatorBasicSix {
       radius: window.radius
-      climbRate: pfd.climbRate
+      climbRate: flight_telemetry.climbRate
     }
   }
 }

@@ -29,31 +29,31 @@ Window {
 
     TankGauge {
       radius: window.radius
-      leftTankFuel: pfd.leftTankFuel
-      rightTankFuel: pfd.rightTankFuel
+      leftTankFuel: flight_telemetry.leftTankFuel
+      rightTankFuel: flight_telemetry.rightTankFuel
     }
 
     EgtFuelFlowGauge {
       radius: window.radius
-      egt: pfd.egt
-      fuelFlow: pfd.fuelFlow
+      egt: flight_telemetry.egt
+      fuelFlow: flight_telemetry.fuelFlow
     }
 
     PropellerGauge {
       radius: window.radius
-      rpm: pfd.rpm
+      rpm: flight_telemetry.rpm
     }
 
     VacAmpGauge {
       radius: window.radius
-      vac: pfd.vac
-      amp: pfd.amp
+      vac: flight_telemetry.vac
+      amp: flight_telemetry.amp
     }
 
     TemperaturePressureGauge {
       radius: window.radius
-      engineTemperature: pfd.engineTemperature
-      enginePressure: pfd.enginePressure
+      engineTemperature: flight_telemetry.engineTemperature
+      enginePressure: flight_telemetry.enginePressure
     }
   }
 }

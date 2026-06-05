@@ -1,28 +1,23 @@
-#ifndef ANIMATION_H
-#define ANIMATION_H
+#pragma once
+
+#include <QTimer>
 
 #include "primary_flight_data.h"
 
-#include <QObject>
-#include <QTimer>
+class Animation : public QObject {
+  Q_OBJECT
+ public:
+  explicit Animation(QObject* parent = nullptr);
 
-class Animation : public QObject
-{
-    Q_OBJECT
-public:
-    explicit Animation(QObject *parent = nullptr);
+  void setPfd(PrimaryFlightData* newPfd);
 
-    void setPfd(PrimaryFlightData *newPfd);
+ public slots:
+  void update();
+  void init();
 
-public slots:
-    void update();
-    void init();
-
-private:
-    PrimaryFlightData *mPfd;
-    QTimer mTimer;
-    double mPlayTime;
-    quint64 mPreviousTime;
+ private:
+  PrimaryFlightData* mPfd;
+  QTimer mTimer;
+  double mPlayTime;
+  quint64 mPreviousTime;
 };
-
-#endif // ANIMATION_H
