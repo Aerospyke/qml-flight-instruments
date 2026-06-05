@@ -1,65 +1,49 @@
 import QtQuick 2.15
 
 CircularGauge {
-  id: root
+  id: egt_gauge_root
   minimumValue: 700
   maximumValue: 1900
   stepSize: 1
   value: 0
 
-  property double minimumValueAngle: 125
-  property double maximumValueAngle: 55
-
   style: CircularGaugeStyle {
     id: style
-    minimumValueAngle: root.minimumValueAngle
-    maximumValueAngle: root.maximumValueAngle
+    // TODO: Make progress Arc Thickness 0 by default
+    progressArcThickness: 0 // Disable Progress Arc
+    minimumValueAngle: 35
+    maximumValueAngle: -35
     tickmarkStepSize: 75
     labelStepSize: 1000
     minorTickmarkCount: 0
 
-    labelInset: 0.25 * outerRadius
-    tickmarkInset: 0.02 * outerRadius
+    labelInset: 0.25 * style.outerRadius
+    tickmarkInset: 0.02 * style.outerRadius
 
     tickmark: Rectangle {
       color: "#ffffff"
-      width: 0.02 * outerRadius
-      height: 0.115 * outerRadius
-      radius: 0.01 * outerRadius
+      width: 0.02 * style.outerRadius
+      height: 0.115 * style.outerRadius
+      radius: 0.01 * style.outerRadius
       antialiasing: true
     }
 
-    tickmarkLabel: Item {
-    }
-
-    foreground: Item {
-    }
-
     needle: GaugeNeedleStandard {
-      width: 0.075 * outerRadius
-      height: 0.95 * outerRadius
+      width: 0.075 * style.outerRadius
+      height: 0.95 * style.outerRadius
     }
 
     background: Item {
       id: background
-      width: 2 * outerRadius
-      height: 2 * outerRadius
+      width: 2 * style.outerRadius
+      height: 2 * style.outerRadius
+      property double radius: style.outerRadius
 
       CustomTextMiscUtil {
         color: "#ffffff"
-        x: 1.6 * outerRadius
-        y: 1.6 * outerRadius
-        text: "25 °C"
-        font.pixelSize: Math.max(6, 0.05 * parent.width)
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-      }
-
-      CustomTextMiscUtil {
-        color: "#ffffff"
-        x: 1.63 * outerRadius
-        y: 1.725 * outerRadius
-        text: "DIV"
+        x: 1.6 * parent.radius
+        y: 1.6 * parent.radius
+        text: "25 °C\nDIV"
         font.pixelSize: Math.max(6, 0.05 * parent.width)
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

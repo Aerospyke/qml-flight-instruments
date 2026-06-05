@@ -7,9 +7,6 @@ CircularGauge {
   stepSize: 0.01
   value: 0
 
-  // property double minimumValueAngle: -135
-  // property double maximumValueAngle: -45
-
   style: CircularGaugeStyle {
     id: style
     progressArcThickness: 0 // Disable Progress Arc
@@ -50,15 +47,10 @@ CircularGauge {
       antialiasing: true
     }
 
-    foreground: Item {
-    }
-
     needle: GaugeNeedleStandard {
       width: 0.075 * style.outerRadius
       height: 0.95 * style.outerRadius
     }
 
-    background: Item {
-    }
   }
 }

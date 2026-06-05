@@ -7,16 +7,11 @@ CircularGauge {
   stepSize: 0.0001
   value: 0
 
-  // property double minimumValueAngle: 135
-  // property double maximumValueAngle: 45
-
   style: CircularGaugeStyle {
     id: style
     progressArcThickness: 0 // Disable Progress Arc
     minimumValueAngle: 45
     maximumValueAngle: -45
-    // minimumValueAngle: root.minimumValueAngle
-    // maximumValueAngle: root.maximumValueAngle
     tickmarkStepSize: 1
     labelStepSize: 1
     minorTickmarkCount: 0
@@ -44,9 +39,6 @@ CircularGauge {
       font.weight: Font.Black
       antialiasing: true
     }
-
-    // foreground: Item {
-    // }
 
     needle: GaugeNeedleStandard {
       width: 0.075 * style.outerRadius
@@ -80,8 +72,6 @@ CircularGauge {
 
       CustomTextMiscUtil {
         x: 1.4 * parent.radius
-        // width: 70 / 300 * parent.radius
-        // height: 90 / 300 * parent.radius
         color: "#ffffff"
         text: "IN.\nHg."
         anchors.verticalCenter: parent.verticalCenter

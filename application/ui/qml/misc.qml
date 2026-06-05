@@ -32,12 +32,12 @@ Window {
       leftTankFuel: pfd.leftTankFuel
       rightTankFuel: pfd.rightTankFuel
     }
-    //
-    // EgtFuelFlowGauge {
-    //   radius: window.radius
-    //   egt: pfd.egt
-    //   fuelFlow: pfd.fuelFlow
-    // }
+
+    EgtFuelFlowGauge {
+      radius: window.radius
+      egt: pfd.egt
+      fuelFlow: pfd.fuelFlow
+    }
 
     PropellerGauge {
       radius: window.radius
