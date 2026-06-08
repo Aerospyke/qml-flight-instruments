@@ -8,10 +8,10 @@ import FlightInstruments
 Window {
   id: rootWindow
   visible: true
-  width: 1800
-  height: 920
-  minimumWidth: 1400
-  minimumHeight: 700
+  width: 3800
+  height: 1100
+  minimumWidth: 2800
+  minimumHeight: 800
   title: "QML Flight Instruments - Modern Single Root (import FlightInstruments)"
   color: "#e8e8e8"
 
@@ -27,11 +27,11 @@ Window {
     // ========== BASIC SIX SECTION ==========
     ColumnLayout {
       id: basicSixSection
-      Layout.preferredWidth: 520
+      Layout.preferredWidth: 1050
       Layout.fillHeight: true
       spacing: 6
 
-      property double scaleRatio: Math.min(height / 620, width / 520)
+      property double scaleRatio: Math.min(height / 500, width / 1050)
       property double instrumentRadius: 155 * scaleRatio
 
       Label {
@@ -46,6 +46,7 @@ Window {
         Layout.fillHeight: true
         color: "#ffffff"
         radius: 4
+        clip: true
 
         Grid {
           columns: 3
@@ -86,7 +87,7 @@ Window {
 
     // ========== EFIS SECTION ==========
     ColumnLayout {
-      Layout.preferredWidth: 720
+      Layout.preferredWidth: 1600
       Layout.fillHeight: true
       spacing: 6
 
@@ -102,13 +103,14 @@ Window {
         Layout.fillHeight: true
         color: "#ffffff"
         radius: 4
+        clip: true
 
         Item {
           id: efisContainer
           anchors.fill: parent
           anchors.margins: 8
 
-          property double scaleRatio: 2.15 * Math.min(height / 620, width / 680)
+          property double scaleRatio: Math.min(height / 400, width / 800)
 
           Row {
             anchors.centerIn: parent
@@ -189,11 +191,11 @@ Window {
     // ========== GAUGES SECTION ==========
     ColumnLayout {
       id: gaugesSection
-      Layout.preferredWidth: 520
+      Layout.preferredWidth: 1050
       Layout.fillHeight: true
       spacing: 6
 
-      property double scaleRatio: Math.min(height / 620, width / 520)
+      property double scaleRatio: Math.min(height / 500, width / 1050)
       property double instrumentRadius: 155 * scaleRatio
 
       Label {
@@ -208,6 +210,7 @@ Window {
         Layout.fillHeight: true
         color: "#ffffff"
         radius: 4
+        clip: true
 
         Grid {
           columns: 3
