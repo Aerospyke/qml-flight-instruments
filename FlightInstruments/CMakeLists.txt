@@ -8,7 +8,7 @@
 #   add_subdirectory(path/to/qml-flight-instruments/FlightInstruments)
 #
 #   set(LINKED_LIBRARIES_INTERNAL
-#       qml_flight_instruments
+#       QmlFlightInstruments
 #       ...
 #   )
 #
@@ -25,9 +25,9 @@ cmake_minimum_required(VERSION 3.21)
 # find_package(Qt6 ...) and qt_standard_project_setup so that qt_add_* commands
 # are available here.
 
-qt_add_library(qml_flight_instruments STATIC)
+qt_add_library(QmlFlightInstruments STATIC)
 
-target_link_libraries(qml_flight_instruments
+target_link_libraries(QmlFlightInstruments
     PRIVATE
         Qt::Core
         Qt::Gui
@@ -38,7 +38,7 @@ target_link_libraries(qml_flight_instruments
         Qt::QuickControls2
 )
 
-target_include_directories(qml_flight_instruments
+target_include_directories(QmlFlightInstruments
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
@@ -46,7 +46,7 @@ target_include_directories(qml_flight_instruments
 # --- QML module declaration (this also registers C++ types for QML) ---
 # We list the QML files so that the module system / qmllint / tooling know about them
 # and so PrimaryFlightData can be used as a QML type via "import FlightInstruments".
-qt_add_qml_module(qml_flight_instruments
+qt_add_qml_module(QmlFlightInstruments
     URI FlightInstruments
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
@@ -109,7 +109,7 @@ qt_add_qml_module(qml_flight_instruments
 #   qrc:/images/...
 #
 # Because we enable AUTORCC at the root, simply adding the .qrc to sources causes
-# rcc to run and embed everything. Linking against qml_flight_instruments then
+# rcc to run and embed everything. Linking against QmlFlightInstruments then
 # makes these qrc:/ paths available to any QQmlEngine in the process.
 #
 # This is what allows code like:
@@ -118,19 +118,19 @@ qt_add_qml_module(qml_flight_instruments
 # and the demo's
 #   engine.load("qrc:/qml/BasicSixRootDisplay.qml")
 # to continue working without changes in the QML sources.
-target_sources(qml_flight_instruments PRIVATE qml_flight_instruments.qrc)
+target_sources(QmlFlightInstruments PRIVATE QmlFlightInstruments.qrc)
 
 # For static QML modules, the actual plugin (which provides the type registration
 # and qmldir for "import FlightInstruments") lives in a separate target
-# (qml_flight_instrumentsplugin). We propagate it through the main target so
-# that consumers only need to list "qml_flight_instruments" (in
+# (QmlFlightInstrumentsplugin). We propagate it through the main target so
+# that consumers only need to list "QmlFlightInstruments" (in
 # LINKED_LIBRARIES_INTERNAL etc.) and "import FlightInstruments" will succeed.
-if (TARGET qml_flight_instrumentsplugin)
-    target_link_libraries(qml_flight_instruments INTERFACE qml_flight_instrumentsplugin)
+if (TARGET QmlFlightInstrumentsplugin)
+    target_link_libraries(QmlFlightInstruments INTERFACE QmlFlightInstrumentsplugin)
 endif ()
 
 # Namespaced alias for modern consuming CMakeLists.txt style.
-add_library(QmlFlightInstruments::qml_flight_instruments ALIAS qml_flight_instruments)
+add_library(QmlFlightInstruments::QmlFlightInstruments ALIAS QmlFlightInstruments)
 
 # Convenience cache variables for advanced consumers.
 set(QML_FLIGHT_INSTRUMENTS_QML_IMPORT_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Base dir for this QML module (contains qmldir after build)")

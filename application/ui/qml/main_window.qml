@@ -3,254 +3,244 @@ import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 
-// This is the demo application's own root QML.
-// It tests the *modern* consumption of the FlightInstruments module:
-//   - import FlightInstruments
-//   - Use the instrument components directly by their QML names.
-//   - Single root window (instead of loading three separate top-level documents).
-
 import FlightInstruments
 
 Window {
-    id: rootWindow
-    visible: true
-    width: 1800
-    height: 920
-    minimumWidth: 1400
-    minimumHeight: 700
-    title: "QML Flight Instruments - Modern Single Root (import FlightInstruments)"
-    color: "#e8e8e8"
+  id: rootWindow
+  visible: true
+  width: 1800
+  height: 920
+  minimumWidth: 1400
+  minimumHeight: 700
+  title: "QML Flight Instruments - Modern Single Root (import FlightInstruments)"
+  color: "#e8e8e8"
 
-    // Shared telemetry comes from C++ (PrimaryFlightData set as context property).
-    // This is still convenient for the animation driver.
-    // In a more pure modern setup you could also instantiate PrimaryFlightData here.
+  FontLoader {
+    source: "qrc:/fonts/CenturyGothic.ttf"
+  }
 
-    FontLoader {
-        source: "qrc:/fonts/CenturyGothic.ttf"
+  RowLayout {
+    anchors.fill: parent
+    anchors.margins: 12
+    spacing: 12
+
+    // ========== BASIC SIX SECTION ==========
+    ColumnLayout {
+      id: basicSixSection
+      Layout.preferredWidth: 520
+      Layout.fillHeight: true
+      spacing: 6
+
+      property double scaleRatio: Math.min(height / 620, width / 520)
+      property double instrumentRadius: 155 * scaleRatio
+
+      Label {
+        text: "Basic Six"
+        font.bold: true
+        font.pixelSize: 16
+        Layout.alignment: Qt.AlignHCenter
+      }
+
+      Rectangle {
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        color: "#ffffff"
+        radius: 4
+
+        Grid {
+          columns: 3
+          columnSpacing: 18
+          rowSpacing: 10
+          anchors.centerIn: parent
+
+          AirspeedIndicatorBasicSix {
+            radius: basicSixSection.instrumentRadius
+            airspeed: flight_telemetry.airspeed
+          }
+          AttitudeIndicatorBasicSix {
+            radius: basicSixSection.instrumentRadius
+            roll: flight_telemetry.roll
+            pitch: flight_telemetry.pitch
+          }
+          AltimeterBasicSix {
+            radius: basicSixSection.instrumentRadius
+            altitude: flight_telemetry.altitude
+            pressure: flight_telemetry.pressure
+          }
+          TurnCoordinatorBasicSix {
+            radius: basicSixSection.instrumentRadius
+            turnRate: flight_telemetry.turnRate
+            slipSkid: flight_telemetry.slipSkid
+          }
+          HeadingIndicatorBasicSix {
+            radius: basicSixSection.instrumentRadius
+            heading: flight_telemetry.heading
+          }
+          VerticalSpeedIndicatorBasicSix {
+            radius: basicSixSection.instrumentRadius
+            climbRate: flight_telemetry.climbRate
+          }
+        }
+      }
     }
 
-    RowLayout {
-        anchors.fill: parent
-        anchors.margins: 12
-        spacing: 12
+    // ========== EFIS SECTION ==========
+    ColumnLayout {
+      Layout.preferredWidth: 720
+      Layout.fillHeight: true
+      spacing: 6
 
-        // ========== BASIC SIX SECTION ==========
-        ColumnLayout {
-            id: basicSixSection
-            Layout.preferredWidth: 520
-            Layout.fillHeight: true
-            spacing: 6
+      Label {
+        text: "EFIS (EADI + EHSI)"
+        font.bold: true
+        font.pixelSize: 16
+        Layout.alignment: Qt.AlignHCenter
+      }
 
-            property double scaleRatio: Math.min(height / 620, width / 520)
-            property double instrumentRadius: 155 * scaleRatio
+      Rectangle {
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        color: "#ffffff"
+        radius: 4
 
-            Label {
-                text: "Basic Six"
-                font.bold: true
-                font.pixelSize: 16
-                Layout.alignment: Qt.AlignHCenter
+        Item {
+          id: efisContainer
+          anchors.fill: parent
+          anchors.margins: 8
+
+          property double scaleRatio: 2.15 * Math.min(height / 620, width / 680)
+
+          Row {
+            anchors.centerIn: parent
+            spacing: 16
+            scale: efisContainer.scaleRatio
+
+            Rectangle {
+              width: 310
+              height: 310
+              radius: 6
+              color: "#000000"
+
+              ElectronicAttitudeDirectionIndicator {
+                anchors.centerIn: parent
+                scaleRatio: efisContainer.scaleRatio
+
+                adi.angleOfAttack: flight_telemetry.angleOfAttack
+                adi.sideSlipAngle: flight_telemetry.angleOfSideSlip
+                adi.roll: flight_telemetry.roll
+                adi.pitch: flight_telemetry.pitch
+                adi.slipSkid: flight_telemetry.slipSkid
+                adi.turnRate: flight_telemetry.turnRate
+                adi.dotH: flight_telemetry.ilsLOC
+                adi.dotV: flight_telemetry.ilsGS
+                adi.fdPitch: flight_telemetry.fdPitch
+                adi.fdRoll: flight_telemetry.fdRoll
+                adi.dotHVisible: flight_telemetry.ilsLOCVisible
+                adi.dotVVisible: flight_telemetry.ilsGSVisible
+                adi.fdVisible: flight_telemetry.fdVisible
+                adi.stallVisible: flight_telemetry.stall
+
+                asi.airspeed: flight_telemetry.airspeed
+                asi.bugValue: flight_telemetry.airspeedBug
+
+                alt.altitude: flight_telemetry.altitude
+                alt.bugValue: flight_telemetry.altitudeBug
+
+                hsi.heading: flight_telemetry.heading
+                hsi.bugValue: flight_telemetry.headingBug
+
+                vsi.climbRate: flight_telemetry.climbRate
+
+                labels.airspeedBug: flight_telemetry.airspeedBug
+                labels.machNumber: flight_telemetry.machNumber
+                labels.altitudeBug: flight_telemetry.altitudeBug
+                labels.pressure: flight_telemetry.pressure
+                labels.pressureMode: flight_telemetry.pressureMode
+                labels.flightMode: flight_telemetry.flightMode
+                labels.speedMode: flight_telemetry.speedMode
+                labels.lnav: flight_telemetry.lateralNavigationMode
+                labels.vnav: flight_telemetry.verticalNavigationMode
+              }
             }
 
             Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                color: "#ffffff"
-                radius: 4
+              width: 310
+              height: 310
+              radius: 6
+              color: "#000000"
 
-                Grid {
-                    columns: 3
-                    columnSpacing: 18
-                    rowSpacing: 10
-                    anchors.centerIn: parent
+              ElectronicHorizontalSituationIndicator {
+                anchors.centerIn: parent
 
-                    AirspeedIndicatorBasicSix {
-                        radius: basicSixSection.instrumentRadius
-                        airspeed: flight_telemetry.airspeed
-                    }
-                    AttitudeIndicatorBasicSix {
-                        radius: basicSixSection.instrumentRadius
-                        roll: flight_telemetry.roll
-                        pitch: flight_telemetry.pitch
-                    }
-                    AltimeterBasicSix {
-                        radius: basicSixSection.instrumentRadius
-                        altitude: flight_telemetry.altitude
-                        pressure: flight_telemetry.pressure
-                    }
-                    TurnCoordinatorBasicSix {
-                        radius: basicSixSection.instrumentRadius
-                        turnRate: flight_telemetry.turnRate
-                        slipSkid: flight_telemetry.slipSkid
-                    }
-                    HeadingIndicatorBasicSix {
-                        radius: basicSixSection.instrumentRadius
-                        heading: flight_telemetry.heading
-                    }
-                    VerticalSpeedIndicatorBasicSix {
-                        radius: basicSixSection.instrumentRadius
-                        climbRate: flight_telemetry.climbRate
-                    }
-                }
+                heading: flight_telemetry.heading
+                course: flight_telemetry.course
+                bearing: flight_telemetry.bearing
+                deviation: flight_telemetry.vorDeviation
+                headingBug: flight_telemetry.headingBug
+                distance: flight_telemetry.dmeDistance
+                cdiMode: flight_telemetry.courseDeviationIndicatorMode
+              }
             }
+          }
         }
-
-        // ========== EFIS SECTION ==========
-        ColumnLayout {
-            Layout.preferredWidth: 720
-            Layout.fillHeight: true
-            spacing: 6
-
-            Label {
-                text: "EFIS (EADI + EHSI)"
-                font.bold: true
-                font.pixelSize: 16
-                Layout.alignment: Qt.AlignHCenter
-            }
-
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                color: "#ffffff"
-                radius: 4
-
-                Item {
-                    id: efisContainer
-                    anchors.fill: parent
-                    anchors.margins: 8
-
-                    property double scaleRatio: 2.15 * Math.min(height / 620, width / 680)
-
-                    Row {
-                        anchors.centerIn: parent
-                        spacing: 16
-                        scale: efisContainer.scaleRatio
-
-                        Rectangle {
-                            width: 310
-                            height: 310
-                            radius: 6
-                            color: "#000000"
-
-                            ElectronicAttitudeDirectionIndicator {
-                                anchors.centerIn: parent
-                                scaleRatio: efisContainer.scaleRatio
-
-                                adi.angleOfAttack: flight_telemetry.angleOfAttack
-                                adi.sideSlipAngle: flight_telemetry.angleOfSideSlip
-                                adi.roll: flight_telemetry.roll
-                                adi.pitch: flight_telemetry.pitch
-                                adi.slipSkid: flight_telemetry.slipSkid
-                                adi.turnRate: flight_telemetry.turnRate
-                                adi.dotH: flight_telemetry.ilsLOC
-                                adi.dotV: flight_telemetry.ilsGS
-                                adi.fdPitch: flight_telemetry.fdPitch
-                                adi.fdRoll: flight_telemetry.fdRoll
-                                adi.dotHVisible: flight_telemetry.ilsLOCVisible
-                                adi.dotVVisible: flight_telemetry.ilsGSVisible
-                                adi.fdVisible: flight_telemetry.fdVisible
-                                adi.stallVisible: flight_telemetry.stall
-
-                                asi.airspeed: flight_telemetry.airspeed
-                                asi.bugValue: flight_telemetry.airspeedBug
-
-                                alt.altitude: flight_telemetry.altitude
-                                alt.bugValue: flight_telemetry.altitudeBug
-
-                                hsi.heading: flight_telemetry.heading
-                                hsi.bugValue: flight_telemetry.headingBug
-
-                                vsi.climbRate: flight_telemetry.climbRate
-
-                                labels.airspeedBug: flight_telemetry.airspeedBug
-                                labels.machNumber: flight_telemetry.machNumber
-                                labels.altitudeBug: flight_telemetry.altitudeBug
-                                labels.pressure: flight_telemetry.pressure
-                                labels.pressureMode: flight_telemetry.pressureMode
-                                labels.flightMode: flight_telemetry.flightMode
-                                labels.speedMode: flight_telemetry.speedMode
-                                labels.lnav: flight_telemetry.lateralNavigationMode
-                                labels.vnav: flight_telemetry.verticalNavigationMode
-                            }
-                        }
-
-                        Rectangle {
-                            width: 310
-                            height: 310
-                            radius: 6
-                            color: "#000000"
-
-                            ElectronicHorizontalSituationIndicator {
-                                anchors.centerIn: parent
-
-                                heading: flight_telemetry.heading
-                                course: flight_telemetry.course
-                                bearing: flight_telemetry.bearing
-                                deviation: flight_telemetry.vorDeviation
-                                headingBug: flight_telemetry.headingBug
-                                distance: flight_telemetry.dmeDistance
-                                cdiMode: flight_telemetry.courseDeviationIndicatorMode
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // ========== GAUGES SECTION ==========
-        ColumnLayout {
-            id: gaugesSection
-            Layout.preferredWidth: 520
-            Layout.fillHeight: true
-            spacing: 6
-
-            property double scaleRatio: Math.min(height / 620, width / 520)
-            property double instrumentRadius: 155 * scaleRatio
-
-            Label {
-                text: "Engine & System Gauges"
-                font.bold: true
-                font.pixelSize: 16
-                Layout.alignment: Qt.AlignHCenter
-            }
-
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                color: "#ffffff"
-                radius: 4
-
-                Grid {
-                    columns: 3
-                    columnSpacing: 24
-                    rowSpacing: 10
-                    anchors.centerIn: parent
-
-                    TankGauge {
-                        radius: gaugesSection.instrumentRadius
-                        leftTankFuel: flight_telemetry.leftTankFuel
-                        rightTankFuel: flight_telemetry.rightTankFuel
-                    }
-                    EgtFuelFlowGauge {
-                        radius: gaugesSection.instrumentRadius
-                        egt: flight_telemetry.egt
-                        fuelFlow: flight_telemetry.fuelFlow
-                    }
-                    PropellerGauge {
-                        radius: gaugesSection.instrumentRadius
-                        rpm: flight_telemetry.rpm
-                    }
-                    VacAmpGauge {
-                        radius: gaugesSection.instrumentRadius
-                        vac: flight_telemetry.vac
-                        amp: flight_telemetry.amp
-                    }
-                    TemperaturePressureGauge {
-                        radius: gaugesSection.instrumentRadius
-                        engineTemperature: flight_telemetry.engineTemperature
-                        enginePressure: flight_telemetry.enginePressure
-                    }
-                }
-            }
-        }
+      }
     }
+
+    // ========== GAUGES SECTION ==========
+    ColumnLayout {
+      id: gaugesSection
+      Layout.preferredWidth: 520
+      Layout.fillHeight: true
+      spacing: 6
+
+      property double scaleRatio: Math.min(height / 620, width / 520)
+      property double instrumentRadius: 155 * scaleRatio
+
+      Label {
+        text: "Engine & System Gauges"
+        font.bold: true
+        font.pixelSize: 16
+        Layout.alignment: Qt.AlignHCenter
+      }
+
+      Rectangle {
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        color: "#ffffff"
+        radius: 4
+
+        Grid {
+          columns: 3
+          columnSpacing: 24
+          rowSpacing: 10
+          anchors.centerIn: parent
+
+          TankGauge {
+            radius: gaugesSection.instrumentRadius
+            leftTankFuel: flight_telemetry.leftTankFuel
+            rightTankFuel: flight_telemetry.rightTankFuel
+          }
+          EgtFuelFlowGauge {
+            radius: gaugesSection.instrumentRadius
+            egt: flight_telemetry.egt
+            fuelFlow: flight_telemetry.fuelFlow
+          }
+          PropellerGauge {
+            radius: gaugesSection.instrumentRadius
+            rpm: flight_telemetry.rpm
+          }
+          VacAmpGauge {
+            radius: gaugesSection.instrumentRadius
+            vac: flight_telemetry.vac
+            amp: flight_telemetry.amp
+          }
+          TemperaturePressureGauge {
+            radius: gaugesSection.instrumentRadius
+            engineTemperature: flight_telemetry.engineTemperature
+            enginePressure: flight_telemetry.enginePressure
+          }
+        }
+      }
+    }
+  }
 }

@@ -51,12 +51,12 @@ model) in other Qt applications without copying files around.
 
 ```cmake
 # Add the instruments module (adjust the path to wherever you placed / submodule'd this repo)
-add_subdirectory(${CMAKE_SOURCE_DIR}/../qml-flight-instruments/FlightInstruments)
+e.g. 'add_subdirectory(${CMAKE_SOURCE_DIR}/qml-flight-instruments)'
 
 # ... later when declaring your app ...
 set(LINKED_LIBRARIES_INTERNAL
-    qml_flight_instruments   # <--- this pulls in all QML, images, fonts and the C++ model
-    # ... other internal libs
+QmlFlightInstruments   # <--- this pulls in all QML, images, fonts and the C++ model
+# ... other internal libs
 )
 
 # Then use the normal find_and_setup_qt (or your own qt_add_executable + target_link_libraries) and
@@ -95,7 +95,8 @@ Item {
 All SVG assets and fonts remain available under the original prefixes (`qrc:/images/...`, `qrc:/fonts/...`)
 because the module embeds the original `.qrc`.
 
-See `FlightInstruments/CMakeLists.txt` for the exact target name and alias (`QmlFlightInstruments::qml_flight_instruments`).
+See `FlightInstruments/CMakeLists.txt` for the exact target name and alias (
+`QmlFlightInstruments::QmlFlightInstruments`).
 
 ## Credits & License
 

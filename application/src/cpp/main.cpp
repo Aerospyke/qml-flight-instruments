@@ -1,17 +1,15 @@
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-
 #include <QtQml/QtQml>
 
 #include "animation.h"
 #include "primary_flight_data.h"
 
-// Pull in resources (qrc:/qml/* with the nice aliases, plus all images and fonts)
-// that live in the static qml_flight_instruments library.
-// Q_INIT_RESOURCE must be called from inside a function.
 int main(int argc, char* argv[]) {
-  Q_INIT_RESOURCE(qml_flight_instruments);
+  // Pull in resources (qrc:/qml/* with the nice aliases, plus all images and fonts)
+  // that live in the static QmlFlightInstruments library.
+  // The resource name must match the .qrc base name (QmlFlightInstruments.qrc).
+  // Q_INIT_RESOURCE must be called from inside a function.
+  Q_INIT_RESOURCE(QmlFlightInstruments);
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -20,8 +18,6 @@ int main(int argc, char* argv[]) {
 
   QQmlApplicationEngine engine;
 
-  // Modern single-root loading: the demo's own QML (MainWindow.qml) does
-  // "import FlightInstruments" and composes the instruments inside one window.
   const QUrl RootUrl("qrc:/qml/MainWindow.qml");
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &Application,
