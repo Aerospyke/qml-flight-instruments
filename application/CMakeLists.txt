@@ -7,12 +7,11 @@ set(QT_PACKAGES
         QuickControls2
 )
 
-# The demo application itself has almost no resources; all QML, fonts and
-# images for the instruments come from linking qml_flight_instruments.
-# We deliberately do not list a resource file here so the generic setup
-# does not try to add a non-existent one. The three "*RootDisplay.qml"
-# files are registered by the instruments library under qrc:/qml/...
-set(APPLICATION_RESOURCE_DECLARATION_FILE "")
+# The demo now has a small resource file of its own (the single modern
+# root window QML). All the actual instrument components, images and fonts
+# still come from linking qml_flight_instruments (the modern module).
+set(APPLICATION_RESOURCE_DECLARATION_FILE
+        ui/demo.qrc)
 
 set(APPLICATION_SOURCE_FILES
         src/cpp/animation.cpp

@@ -120,6 +120,15 @@ qt_add_qml_module(qml_flight_instruments
 # to continue working without changes in the QML sources.
 target_sources(qml_flight_instruments PRIVATE qml_flight_instruments.qrc)
 
+# For static QML modules, the actual plugin (which provides the type registration
+# and qmldir for "import FlightInstruments") lives in a separate target
+# (qml_flight_instrumentsplugin). We propagate it through the main target so
+# that consumers only need to list "qml_flight_instruments" (in
+# LINKED_LIBRARIES_INTERNAL etc.) and "import FlightInstruments" will succeed.
+if (TARGET qml_flight_instrumentsplugin)
+    target_link_libraries(qml_flight_instruments INTERFACE qml_flight_instrumentsplugin)
+endif ()
+
 # Namespaced alias for modern consuming CMakeLists.txt style.
 add_library(QmlFlightInstruments::qml_flight_instruments ALIAS qml_flight_instruments)
 

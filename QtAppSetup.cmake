@@ -161,6 +161,12 @@ function(setup_qt_application)
             ${ARG_LINKED_LIBRARIES_INTERNAL}
     )
 
+    # Ensure any static QML modules (such as qml_flight_instruments) have their
+    # plugins and resources pulled into the executable. This is required for
+    # "import FlightInstruments" (and similar) to work when linking the module
+    # as a static library.
+    qt_import_qml_plugins(${ARG_APPLICATION_NAME})
+
     # Project Setup - Stop
 
     # Install/Deployment Handling - Start

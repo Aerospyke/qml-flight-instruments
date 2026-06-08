@@ -2,10 +2,17 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include <QtQml/QtQml>
+
 #include "animation.h"
 #include "primary_flight_data.h"
 
+// Pull in resources (qrc:/qml/* with the nice aliases, plus all images and fonts)
+// that live in the static qml_flight_instruments library.
+// Q_INIT_RESOURCE must be called from inside a function.
 int main(int argc, char* argv[]) {
+  Q_INIT_RESOURCE(qml_flight_instruments);
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -13,29 +20,13 @@ int main(int argc, char* argv[]) {
 
   QQmlApplicationEngine engine;
 
-  const QUrl BasicSixRoot("qrc:/qml/BasicSixRootDisplay.qml");
+  // Modern single-root loading: the demo's own QML (MainWindow.qml) does
+  // "import FlightInstruments" and composes the instruments inside one window.
+  const QUrl RootUrl("qrc:/qml/MainWindow.qml");
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &Application,
-      [BasicSixRoot](const QObject* object, const QUrl& object_url) {
-        if (!object && BasicSixRoot == object_url)
-          QCoreApplication::exit(-1);
-      },
-      Qt::QueuedConnection);
-
-  const QUrl EfisRoot("qrc:/qml/EfisRootDisplay.qml");
-  QObject::connect(
-      &engine, &QQmlApplicationEngine::objectCreated, &Application,
-      [EfisRoot](const QObject* obj, const QUrl& object_url) {
-        if (!obj && EfisRoot == object_url)
-          QCoreApplication::exit(-1);
-      },
-      Qt::QueuedConnection);
-
-  const QUrl GaugesRoot("qrc:/qml/GaugesRootDisplay");
-  QObject::connect(
-      &engine, &QQmlApplicationEngine::objectCreated, &Application,
-      [GaugesRoot](const QObject* object, const QUrl& object_url) {
-        if (!object && GaugesRoot == object_url)
+      [RootUrl](const QObject* object, const QUrl& object_url) {
+        if (!object && RootUrl == object_url)
           QCoreApplication::exit(-1);
       },
       Qt::QueuedConnection);
@@ -45,9 +36,7 @@ int main(int argc, char* argv[]) {
   animation->setPfd(flight_telemetry);
 
   engine.rootContext()->setContextProperty("flight_telemetry", flight_telemetry);
-  engine.load(BasicSixRoot);
-  engine.load(EfisRoot);
-  engine.load(GaugesRoot);
+  engine.load(RootUrl);
 
   animation->init();
 
