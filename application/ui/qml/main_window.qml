@@ -27,7 +27,7 @@ Window {
     // LEFT: vertically stacked Basic Six + Gauges
     SplitView {
       orientation: Qt.Vertical
-      SplitView.preferredWidth: 850
+      SplitView.preferredWidth: 1150
       SplitView.minimumWidth: 500
 
       // ========== BASIC SIX SECTION ==========
@@ -38,22 +38,20 @@ Window {
         Layout.fillWidth: true
         spacing: 6
 
-        property double scaleRatio: Math.min( (height - 40) / 500 , (width - 20) / 1050 )
+        property double scaleRatio: Math.min((height - 40) / 650, (width - 20) / 1050)
         property double instrumentRadius: 155 * scaleRatio
 
         Label {
           text: "Basic Six"
           font.bold: true
           font.pixelSize: 16
+
           Layout.alignment: Qt.AlignHCenter
-          Layout.bottomMargin: 4
         }
 
         Rectangle {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.topMargin: 4
-          Layout.bottomMargin: 10
           color: "#ffffff"
           radius: 4
           clip: true
@@ -103,7 +101,7 @@ Window {
         Layout.fillWidth: true
         spacing: 6
 
-        property double scaleRatio: Math.min( (height - 40) / 500 , (width - 20) / 1050 )
+        property double scaleRatio: Math.min((height - 40) / 650, (width - 20) / 1050)
         property double instrumentRadius: 155 * scaleRatio
 
         Label {
@@ -111,14 +109,11 @@ Window {
           font.bold: true
           font.pixelSize: 16
           Layout.alignment: Qt.AlignHCenter
-          Layout.bottomMargin: 4
         }
 
         Rectangle {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.topMargin: 4
-          Layout.bottomMargin: 10
           color: "#ffffff"
           radius: 4
           clip: true
@@ -160,7 +155,7 @@ Window {
 
     // RIGHT: EFIS (full height)
     ColumnLayout {
-      SplitView.preferredWidth: 1070
+      SplitView.preferredWidth: 700
       SplitView.minimumWidth: 500
       Layout.fillHeight: true
       spacing: 6
@@ -170,14 +165,11 @@ Window {
         font.bold: true
         font.pixelSize: 16
         Layout.alignment: Qt.AlignHCenter
-        Layout.bottomMargin: 4
       }
 
       Rectangle {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        Layout.topMargin: 4
-        Layout.bottomMargin: 10
         color: "#ffffff"
         radius: 4
         clip: true
@@ -187,9 +179,9 @@ Window {
           anchors.fill: parent
           anchors.margins: 8
 
-          property double scaleRatio: Math.min(height / 400, width / 800)
+          property double scaleRatio: Math.min(height / 650, width / 330)
 
-          Row {
+          Column {
             anchors.centerIn: parent
             spacing: 16
             scale: efisContainer.scaleRatio
