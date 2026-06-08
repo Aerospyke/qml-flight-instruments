@@ -8,10 +8,10 @@ import FlightInstruments
 Window {
   id: rootWindow
   visible: true
-  width: 3800
-  height: 1100
-  minimumWidth: 2800
-  minimumHeight: 800
+  width: 1920
+  height: 1080
+  minimumWidth: 1200
+  minimumHeight: 700
   title: "QML Flight Instruments - Modern Single Root (import FlightInstruments)"
   color: "#e8e8e8"
 
@@ -19,75 +19,149 @@ Window {
     source: "qrc:/fonts/CenturyGothic.ttf"
   }
 
-  RowLayout {
+  SplitView {
     anchors.fill: parent
     anchors.margins: 12
-    spacing: 12
+    orientation: Qt.Horizontal
 
-    // ========== BASIC SIX SECTION ==========
-    ColumnLayout {
-      id: basicSixSection
-      Layout.preferredWidth: 1050
-      Layout.fillHeight: true
-      spacing: 6
+    // LEFT: vertically stacked Basic Six + Gauges
+    SplitView {
+      orientation: Qt.Vertical
+      SplitView.preferredWidth: 850
+      SplitView.minimumWidth: 500
 
-      property double scaleRatio: Math.min(height / 500, width / 1050)
-      property double instrumentRadius: 155 * scaleRatio
+      // ========== BASIC SIX SECTION ==========
+      ColumnLayout {
+        id: basicSixSection
+        SplitView.preferredHeight: 520
+        SplitView.minimumHeight: 300
+        Layout.fillWidth: true
+        spacing: 6
 
-      Label {
-        text: "Basic Six"
-        font.bold: true
-        font.pixelSize: 16
-        Layout.alignment: Qt.AlignHCenter
+        property double scaleRatio: Math.min( (height - 40) / 500 , (width - 20) / 1050 )
+        property double instrumentRadius: 155 * scaleRatio
+
+        Label {
+          text: "Basic Six"
+          font.bold: true
+          font.pixelSize: 16
+          Layout.alignment: Qt.AlignHCenter
+          Layout.bottomMargin: 4
+        }
+
+        Rectangle {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          Layout.topMargin: 4
+          Layout.bottomMargin: 10
+          color: "#ffffff"
+          radius: 4
+          clip: true
+
+          Grid {
+            columns: 3
+            columnSpacing: 18
+            rowSpacing: 10
+            anchors.centerIn: parent
+
+            AirspeedIndicatorBasicSix {
+              radius: basicSixSection.instrumentRadius
+              airspeed: flight_telemetry.airspeed
+            }
+            AttitudeIndicatorBasicSix {
+              radius: basicSixSection.instrumentRadius
+              roll: flight_telemetry.roll
+              pitch: flight_telemetry.pitch
+            }
+            AltimeterBasicSix {
+              radius: basicSixSection.instrumentRadius
+              altitude: flight_telemetry.altitude
+              pressure: flight_telemetry.pressure
+            }
+            TurnCoordinatorBasicSix {
+              radius: basicSixSection.instrumentRadius
+              turnRate: flight_telemetry.turnRate
+              slipSkid: flight_telemetry.slipSkid
+            }
+            HeadingIndicatorBasicSix {
+              radius: basicSixSection.instrumentRadius
+              heading: flight_telemetry.heading
+            }
+            VerticalSpeedIndicatorBasicSix {
+              radius: basicSixSection.instrumentRadius
+              climbRate: flight_telemetry.climbRate
+            }
+          }
+        }
       }
 
-      Rectangle {
+      // ========== GAUGES SECTION ==========
+      ColumnLayout {
+        id: gaugesSection
+        SplitView.preferredHeight: 520
+        SplitView.minimumHeight: 300
         Layout.fillWidth: true
-        Layout.fillHeight: true
-        color: "#ffffff"
-        radius: 4
-        clip: true
+        spacing: 6
 
-        Grid {
-          columns: 3
-          columnSpacing: 18
-          rowSpacing: 10
-          anchors.centerIn: parent
+        property double scaleRatio: Math.min( (height - 40) / 500 , (width - 20) / 1050 )
+        property double instrumentRadius: 155 * scaleRatio
 
-          AirspeedIndicatorBasicSix {
-            radius: basicSixSection.instrumentRadius
-            airspeed: flight_telemetry.airspeed
-          }
-          AttitudeIndicatorBasicSix {
-            radius: basicSixSection.instrumentRadius
-            roll: flight_telemetry.roll
-            pitch: flight_telemetry.pitch
-          }
-          AltimeterBasicSix {
-            radius: basicSixSection.instrumentRadius
-            altitude: flight_telemetry.altitude
-            pressure: flight_telemetry.pressure
-          }
-          TurnCoordinatorBasicSix {
-            radius: basicSixSection.instrumentRadius
-            turnRate: flight_telemetry.turnRate
-            slipSkid: flight_telemetry.slipSkid
-          }
-          HeadingIndicatorBasicSix {
-            radius: basicSixSection.instrumentRadius
-            heading: flight_telemetry.heading
-          }
-          VerticalSpeedIndicatorBasicSix {
-            radius: basicSixSection.instrumentRadius
-            climbRate: flight_telemetry.climbRate
+        Label {
+          text: "Engine & System Gauges"
+          font.bold: true
+          font.pixelSize: 16
+          Layout.alignment: Qt.AlignHCenter
+          Layout.bottomMargin: 4
+        }
+
+        Rectangle {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          Layout.topMargin: 4
+          Layout.bottomMargin: 10
+          color: "#ffffff"
+          radius: 4
+          clip: true
+
+          Grid {
+            columns: 3
+            columnSpacing: 24
+            rowSpacing: 10
+            anchors.centerIn: parent
+
+            TankGauge {
+              radius: gaugesSection.instrumentRadius
+              leftTankFuel: flight_telemetry.leftTankFuel
+              rightTankFuel: flight_telemetry.rightTankFuel
+            }
+            EgtFuelFlowGauge {
+              radius: gaugesSection.instrumentRadius
+              egt: flight_telemetry.egt
+              fuelFlow: flight_telemetry.fuelFlow
+            }
+            PropellerGauge {
+              radius: gaugesSection.instrumentRadius
+              rpm: flight_telemetry.rpm
+            }
+            VacAmpGauge {
+              radius: gaugesSection.instrumentRadius
+              vac: flight_telemetry.vac
+              amp: flight_telemetry.amp
+            }
+            TemperaturePressureGauge {
+              radius: gaugesSection.instrumentRadius
+              engineTemperature: flight_telemetry.engineTemperature
+              enginePressure: flight_telemetry.enginePressure
+            }
           }
         }
       }
     }
 
-    // ========== EFIS SECTION ==========
+    // RIGHT: EFIS (full height)
     ColumnLayout {
-      Layout.preferredWidth: 1600
+      SplitView.preferredWidth: 1070
+      SplitView.minimumWidth: 500
       Layout.fillHeight: true
       spacing: 6
 
@@ -96,11 +170,14 @@ Window {
         font.bold: true
         font.pixelSize: 16
         Layout.alignment: Qt.AlignHCenter
+        Layout.bottomMargin: 4
       }
 
       Rectangle {
         Layout.fillWidth: true
         Layout.fillHeight: true
+        Layout.topMargin: 4
+        Layout.bottomMargin: 10
         color: "#ffffff"
         radius: 4
         clip: true
@@ -183,64 +260,6 @@ Window {
                 cdiMode: flight_telemetry.courseDeviationIndicatorMode
               }
             }
-          }
-        }
-      }
-    }
-
-    // ========== GAUGES SECTION ==========
-    ColumnLayout {
-      id: gaugesSection
-      Layout.preferredWidth: 1050
-      Layout.fillHeight: true
-      spacing: 6
-
-      property double scaleRatio: Math.min(height / 500, width / 1050)
-      property double instrumentRadius: 155 * scaleRatio
-
-      Label {
-        text: "Engine & System Gauges"
-        font.bold: true
-        font.pixelSize: 16
-        Layout.alignment: Qt.AlignHCenter
-      }
-
-      Rectangle {
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        color: "#ffffff"
-        radius: 4
-        clip: true
-
-        Grid {
-          columns: 3
-          columnSpacing: 24
-          rowSpacing: 10
-          anchors.centerIn: parent
-
-          TankGauge {
-            radius: gaugesSection.instrumentRadius
-            leftTankFuel: flight_telemetry.leftTankFuel
-            rightTankFuel: flight_telemetry.rightTankFuel
-          }
-          EgtFuelFlowGauge {
-            radius: gaugesSection.instrumentRadius
-            egt: flight_telemetry.egt
-            fuelFlow: flight_telemetry.fuelFlow
-          }
-          PropellerGauge {
-            radius: gaugesSection.instrumentRadius
-            rpm: flight_telemetry.rpm
-          }
-          VacAmpGauge {
-            radius: gaugesSection.instrumentRadius
-            vac: flight_telemetry.vac
-            amp: flight_telemetry.amp
-          }
-          TemperaturePressureGauge {
-            radius: gaugesSection.instrumentRadius
-            engineTemperature: flight_telemetry.engineTemperature
-            enginePressure: flight_telemetry.enginePressure
           }
         }
       }
