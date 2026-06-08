@@ -12,7 +12,7 @@ Window {
   height: 1080
   minimumWidth: 1200
   minimumHeight: 700
-  title: "QML Flight Instruments - Modern Single Root (import FlightInstruments)"
+  title: "QML Flight Instruments"
   color: "#e8e8e8"
 
   FontLoader {
@@ -21,7 +21,6 @@ Window {
 
   SplitView {
     anchors.fill: parent
-    anchors.margins: 12
     orientation: Qt.Horizontal
 
     // LEFT: vertically stacked Basic Six + Gauges
@@ -160,7 +159,6 @@ Window {
       SplitView.preferredWidth: 700
       SplitView.minimumWidth: 500
       Layout.fillHeight: true
-      spacing: 6
 
       Label {
         text: "EFIS (EADI + EHSI)"
