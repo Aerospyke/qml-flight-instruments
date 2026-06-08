@@ -7,24 +7,27 @@ set(QT_PACKAGES
         QuickControls2
 )
 
-set(APPLICATION_RESOURCE_DECLARATION_FILE
-        ui/qml_flight_instruments.qrc)
+# The demo application itself has almost no resources; all QML, fonts and
+# images for the instruments come from linking qml_flight_instruments.
+# We deliberately do not list a resource file here so the generic setup
+# does not try to add a non-existent one. The three "*RootDisplay.qml"
+# files are registered by the instruments library under qrc:/qml/...
+set(APPLICATION_RESOURCE_DECLARATION_FILE "")
 
 set(APPLICATION_SOURCE_FILES
         src/cpp/animation.cpp
         src/cpp/main.cpp
-        src/cpp/primary_flight_data.cpp
 )
 
 set(APPLICATION_HEADER_FILES
         src/include/animation.h
-        src/include/primary_flight_data.h
 )
 
 set(APPLICATION_INCLUDE_DIRECTORIES
         src/include)
 
 set(LINKED_LIBRARIES_INTERNAL
+        qml_flight_instruments
 )
 
 set(LINKED_LIBRARIES_QT

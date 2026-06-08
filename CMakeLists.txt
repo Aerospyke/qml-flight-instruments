@@ -24,4 +24,24 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 list(APPEND CMAKE_PREFIX_PATH ${QT_INSTALL_LOCATION})
 
+# Find Qt once at the root so that all subdirectories (including the reusable
+# FlightInstruments module) can safely use qt_add_library / qt_add_qml_module etc.
+find_package(Qt6 ${QT_VERSION_TO_USE} COMPONENTS
+        Core
+        Gui
+        Quick
+        Graphs
+        ShaderTools
+        QuickLayouts
+        QuickControls2
+        REQUIRED
+)
+
+if (QT_KNOWN_POLICY_QTP0004)
+    qt_policy(SET QTP0004 NEW)
+endif ()
+
+qt_standard_project_setup(REQUIRES ${QT_VERSION_TO_USE})
+
+add_subdirectory(FlightInstruments)
 add_subdirectory(application)

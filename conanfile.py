@@ -8,7 +8,7 @@ class QmlFlightInstrumentsRecipe(ConanFile):
     package_type = "application"
     author = "Conor J. Haines"
     settings = "os", "compiler", "build_type", "arch"
-    exports_sources = "CMakeLists.txt", "application/*"
+    exports_sources = "CMakeLists.txt", "QtAppSetup.cmake", "FlightInstruments/*", "application/*"
 
     def layout(self):
         cmake_layout(self)

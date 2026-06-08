@@ -32,18 +32,22 @@ macro(find_and_setup_qt)
         message(WARNING "COMPONENTS not passed to find_and_setup_qt - using default: ${ARG_COMPONENTS}")
     endif ()
 
-    find_package(Qt6 ${ARG_VERSION} COMPONENTS ${ARG_COMPONENTS} REQUIRED)
-
-    # Optional extra warning if no components were actually found (rare)
     if (NOT Qt6_FOUND)
-        message(FATAL_ERROR "Qt6 ${ARG_VERSION} not found with the requested components: ${ARG_COMPONENTS}")
-    endif ()
+        find_package(Qt6 ${ARG_VERSION} COMPONENTS ${ARG_COMPONENTS} REQUIRED)
 
-    if (QT_KNOWN_POLICY_QTP0004)
-        qt_policy(SET QTP0004 NEW)
-    endif ()
+        # Optional extra warning if no components were actually found (rare)
+        if (NOT Qt6_FOUND)
+            message(FATAL_ERROR "Qt6 ${ARG_VERSION} not found with the requested components: ${ARG_COMPONENTS}")
+        endif ()
 
-    qt_standard_project_setup(REQUIRES ${ARG_VERSION})
+        if (QT_KNOWN_POLICY_QTP0004)
+            qt_policy(SET QTP0004 NEW)
+        endif ()
+
+        qt_standard_project_setup(REQUIRES ${ARG_VERSION})
+    else ()
+        message(STATUS "Qt6 already found by parent - skipping duplicate find_package in find_and_setup_qt")
+    endif ()
 
     message(STATUS "Using Qt ${Qt6_VERSION} with components: ${ARG_COMPONENTS}")
 
@@ -96,8 +100,8 @@ function(setup_qt_application)
     endif ()
 
     if (NOT ARG_APPLICATION_RESOURCE_DECLARATION_FILE)
-        set(ARG_APPLICATION_RESOURCE_DECLARATION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/rsc/${ARG_APPLICATION_NAME}.qrc")
-        message(WARNING "APPLICATION_RESOURCE_DECLARATION_FILE not passed - using default: ${ARG_APPLICATION_RESOURCE_DECLARATION_FILE}")
+        # No resources for this target (common when all QML/assets come from linked libraries).
+        message(STATUS "APPLICATION_RESOURCE_DECLARATION_FILE not passed - assuming this executable brings no additional resources")
     endif ()
 
     if (NOT ARG_APPLICATION_ICON_PATH)
@@ -131,7 +135,10 @@ function(setup_qt_application)
     endif ()
     # Argument Handling - Start
 
-    qt_add_resources(APP_RESOURCES ${ARG_APPLICATION_RESOURCE_DECLARATION_FILE})
+    set(APP_RESOURCES "")
+    if (ARG_APPLICATION_RESOURCE_DECLARATION_FILE)
+        qt_add_resources(APP_RESOURCES ${ARG_APPLICATION_RESOURCE_DECLARATION_FILE})
+    endif ()
 
     # Project Setup - Start
     qt_add_executable(${ARG_APPLICATION_NAME}
