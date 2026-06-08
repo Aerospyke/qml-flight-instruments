@@ -1,24 +1,3 @@
-# FlightInstruments
-#
-# A reusable Qt library + QML module providing flight instruments (Basic Six,
-# EFIS EADI/EHSI, engine gauges, etc).
-#
-# Usage in a consuming project (e.g. aero-hub/app):
-#
-#   add_subdirectory(path/to/qml-flight-instruments/FlightInstruments)
-#
-#   set(LINKED_LIBRARIES_INTERNAL
-#       QmlFlightInstruments
-#       ...
-#   )
-#
-# Then in the consuming app you can:
-#   - Load example root displays via the classic resource paths, e.g.
-#       engine.load(QUrl(QStringLiteral("qrc:/qml/BasicSixRootDisplay.qml")));
-#   - Or import the module: import FlightInstruments
-#   - Use PrimaryFlightData directly in QML (after the import) or as a context property.
-#   - All images and fonts are available under qrc:/images/... and qrc:/fonts/...
-
 cmake_minimum_required(VERSION 3.21)
 
 # The parent project (root CMakeLists.txt) is expected to have already performed
@@ -28,7 +7,7 @@ cmake_minimum_required(VERSION 3.21)
 qt_add_library(QmlFlightInstruments STATIC)
 
 target_link_libraries(QmlFlightInstruments
-    PRIVATE
+        PRIVATE
         Qt::Core
         Qt::Gui
         Qt::Quick
@@ -39,7 +18,7 @@ target_link_libraries(QmlFlightInstruments
 )
 
 target_include_directories(QmlFlightInstruments
-    PUBLIC
+        PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
@@ -47,14 +26,14 @@ target_include_directories(QmlFlightInstruments
 # We list the QML files so that the module system / qmllint / tooling know about them
 # and so PrimaryFlightData can be used as a QML type via "import FlightInstruments".
 qt_add_qml_module(QmlFlightInstruments
-    URI FlightInstruments
-    VERSION 1.0
-    RESOURCE_PREFIX "/qt/qml"
-    # C++ type(s) that should be usable from QML when the module is imported.
-    SOURCES
+        URI FlightInstruments
+        VERSION 1.0
+        RESOURCE_PREFIX "/qt/qml"
+        # C++ type(s) that should be usable from QML when the module is imported.
+        SOURCES
         include/primary_flight_data.h
         src/primary_flight_data.cpp
-    QML_FILES
+        QML_FILES
         qml/basic_six_root_display.qml
         qml/efis_root_display.qml
         qml/gauges_root_display.qml
@@ -102,29 +81,22 @@ qt_add_qml_module(QmlFlightInstruments
         qml/gauges/vac-amp-gauge/vac_gauge.qml
 )
 
-# --- Classic resource system for images, fonts and (for demo compatibility) QML files ---
-# The qrc file defines the well-known prefixes used by the existing QML code:
-#   qrc:/qml/...
-#   qrc:/fonts/...
-#   qrc:/images/...
+# IMPORTANT for consumers:
+#   Because this is a *static* library, you must explicitly initialize the
+#   resources from *one of your executable's .cpp files* (not from inside
+#   another static library). The standard way is:
 #
-# Because we enable AUTORCC at the root, simply adding the .qrc to sources causes
-# rcc to run and embed everything. Linking against QmlFlightInstruments then
-# makes these qrc:/ paths available to any QQmlEngine in the process.
+#     Q_INIT_RESOURCE(QmlFlightInstruments);
 #
-# This is what allows code like:
-#   source: "qrc:/images/asi/asi.svg"
-#   FontLoader { source: "qrc:/fonts/CenturyGothic.ttf" }
-# and the demo's
-#   engine.load("qrc:/qml/BasicSixRootDisplay.qml")
-# to continue working without changes in the QML sources.
+#   Put this at file scope (as a static initializer) or as the very first
+#   statement in main(), before any QGuiApplication or QQmlApplicationEngine
+#   is created. This forces the rcc-generated object from the static lib
+#   to be pulled into your final executable and registers the qrc:/ paths.
+#
+#   Without it you will get "No such file or directory" for images/fonts or
+#   when loading the old qrc:/qml/... root displays.
 target_sources(QmlFlightInstruments PRIVATE QmlFlightInstruments.qrc)
 
-# For static QML modules, the actual plugin (which provides the type registration
-# and qmldir for "import FlightInstruments") lives in a separate target
-# (QmlFlightInstrumentsplugin). We propagate it through the main target so
-# that consumers only need to list "QmlFlightInstruments" (in
-# LINKED_LIBRARIES_INTERNAL etc.) and "import FlightInstruments" will succeed.
 if (TARGET QmlFlightInstrumentsplugin)
     target_link_libraries(QmlFlightInstruments INTERFACE QmlFlightInstrumentsplugin)
 endif ()

@@ -5,10 +5,10 @@
 #include "primary_flight_data.h"
 
 int main(int argc, char* argv[]) {
-  // Pull in resources (qrc:/qml/* with the nice aliases, plus all images and fonts)
-  // that live in the static QmlFlightInstruments library.
-  // The resource name must match the .qrc base name (QmlFlightInstruments.qrc).
-  // Q_INIT_RESOURCE must be called from inside a function.
+  // Initialize resources from the static QmlFlightInstruments module.
+  // This must be done from the final executable (not from inside another
+  // static library). It is required for the images, fonts, and legacy
+  // qrc:/qml/... paths used by the instrument components.
   Q_INIT_RESOURCE(QmlFlightInstruments);
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)

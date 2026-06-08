@@ -7,6 +7,7 @@ s [QFlightinstruments](https://github.com/marek-cel/QFlightinstruments). This up
 - Is compatible with Qt6 (tested against 6.11.0). This required many changes, including the replacement of the Qt Quick
   Extras CircularGauge with a custom circular gauge.
 - Replaces the Qt project structure with a pure CMake build system
+- The Flight Instruments are now in a seperate module. The demo app has been updated to reflect this change.
 
 SVG files are from Marek's repository. See `application/ui/images/LICENSE` for copyright.
 
@@ -41,31 +42,39 @@ SVG files are from Marek's repository. See `application/ui/images/LICENSE` for c
 I have only test on macOS so far, but plan on building in Linux in the near future. Testing on Windows would be
 appreciated!
 
-## Using as a reusable Qt module (recommended)
+## Usage Guide
 
-The flight instruments are now packaged as a proper static library + QML module in the `FlightInstruments/`
-subdirectory. This lets you reuse the instruments (QML components, images, fonts, and the `PrimaryFlightData`
-model) in other Qt applications without copying files around.
+Reference the application sub project to see how to use the Flight Instruments module in your own application. Some key
+points:
 
-### In your consuming project's CMakeLists.txt
+1. In the consuming project's CMakeLists.txt
+    - Add the Flight instruments module (adjust the path to wherever you placed / submodule'd this repo)
+        - for example, if you copied the module to ${project_root}/qml-flight-instruments,
 
-```cmake
-# Add the instruments module (adjust the path to wherever you placed / submodule'd this repo)
-e.g. 'add_subdirectory(${CMAKE_SOURCE_DIR}/qml-flight-instruments)'
-
-# ... later when declaring your app ...
-set(LINKED_LIBRARIES_INTERNAL
-QmlFlightInstruments   # <--- this pulls in all QML, images, fonts and the C++ model
-# ... other internal libs
-)
-
-# Then use the normal find_and_setup_qt (or your own qt_add_executable + target_link_libraries) and
-# list LINKED_LIBRARIES_INTERNAL. The resources from the instruments will be available automatically.
+```cmake 
+      add_subdirectory(${CMAKE_SOURCE_DIR}/qml-flight-instruments)
 ```
 
-### From QML in the consuming app
+2. Link the module/static library
 
-Classic resource loading (no changes required to most existing instrument QML):
+```cmake
+set(LINKED_LIBRARIES_INTERNAL
+        QmlFlightInstruments
+        # ... other internal libs
+)
+```
+
+3. Because the instruments are delivered as a *static* library, you must also call Q_INIT_RESOURCE from one of your
+   executable's .cpp files (typically the very first thing in main(), before creating the QGuiApplication
+   or QQmlApplicationEngine). This is required so that the images, fonts, and legacy qrc:/qml/... paths are registered.
+
+```C++ 
+  Q_INIT_RESOURCE(QmlFlightInstruments);
+  ```
+
+4. Loading QML Resources in the consuming app
+
+- Classic resource loading (no changes required to most existing instrument QML):
 
 ```qml
 // Load a full pre-built display as a Window (or use the individual gauges inside your own UI)
@@ -74,7 +83,7 @@ Loader {
 }
 ```
 
-Or with the QML module import:
+- With the QML module import:
 
 ```qml
 import FlightInstruments
@@ -91,9 +100,6 @@ Item {
     }
 }
 ```
-
-All SVG assets and fonts remain available under the original prefixes (`qrc:/images/...`, `qrc:/fonts/...`)
-because the module embeds the original `.qrc`.
 
 See `FlightInstruments/CMakeLists.txt` for the exact target name and alias (
 `QmlFlightInstruments::QmlFlightInstruments`).
