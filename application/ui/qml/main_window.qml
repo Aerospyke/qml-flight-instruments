@@ -44,7 +44,8 @@ Window {
         Label {
           text: "Basic Six"
           font.bold: true
-          font.pixelSize: 16
+          font.pixelSize: 20
+          color: "#333333"
 
           Layout.alignment: Qt.AlignHCenter
         }
@@ -107,7 +108,8 @@ Window {
         Label {
           text: "Engine & System Gauges"
           font.bold: true
-          font.pixelSize: 16
+          font.pixelSize: 20
+          color: "#333333"
           Layout.alignment: Qt.AlignHCenter
         }
 
@@ -163,7 +165,8 @@ Window {
       Label {
         text: "EFIS (EADI + EHSI)"
         font.bold: true
-        font.pixelSize: 16
+        font.pixelSize: 20
+        color: "#333333"
         Layout.alignment: Qt.AlignHCenter
       }
 
