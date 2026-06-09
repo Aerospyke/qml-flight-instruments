@@ -7,9 +7,7 @@ set(QT_PACKAGES
         QuickControls2
 )
 
-# The demo now has a small resource file of its own (the single modern
-# root window QML). All the actual instrument components, images and fonts
-# still come from linking QmlFlightInstruments (the modern module).
+
 set(APPLICATION_RESOURCE_DECLARATION_FILE
         ui/demo.qrc)
 
